@@ -113,8 +113,7 @@ $('#propModal').on('show.bs.modal', function (e) {
 		activeEl.css('border-color')
   		);
 
-  	// CALCULATE WIDTH AND HEIGHT
-		  // HERE
+
           setCurrentOptions(activeEl);
 
       modalColorElm.val(rgb2hex(modalObj.color));
@@ -123,11 +122,11 @@ $('#propModal').on('show.bs.modal', function (e) {
 	  $('#modalTextAlign option[value="'+modalObj['text-align']+'"]').prop('selected',true);
 	  modalWidthElm.val(elmWidth);
       modalHeightElm.val(elmHeight);
-      modalPaddingLeft.val(modalObj.paddingLeft);
-	  modalPaddingRight.val(modalObj.paddingRight);
-	  modalPaddingTop.val(modalObj.paddingTop);
-	  modalPaddingBottom.val(modalObj.paddingBottom);
-	  modalBorderWidth.val(modalObj.borderWidth);
+      modalPaddingLeft.val(elmPaddingLeft);
+	  modalPaddingRight.val(elmPaddingRight);
+	  modalPaddingTop.val(elmPaddingTop);
+	  modalPaddingBottom.val(elmPaddingBot);
+	  modalBorderWidth.val(elmborderWidth);
 	  modalBorderColor.val(rgb2hex(modalObj.borderColor));
 
 	  }
