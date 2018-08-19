@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	  <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/yeti/bootstrap.min.css" rel="stylesheet" >
+	<link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>Diplom</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-4">
+			<div class="col-12">
+				<h3 class = "pointer">Добавить блок</h3>
+				<div class="hide-toggle div-toggle">
+					<div class="form-group">
+						<label for="BackColor1">Выберите цвет фона</label>
+						<input class = "mg" type="color" id="BackColor1">
+					</div>
+					<div class="form-group">
+						<label for="Color1">Выберите цвет текста</label>
+						<input class = "mg" type="color" id="Color1">
+					</div>
+					<div class="form-group">
+						<label for="text1">Введите текст</label>
+						<textarea class = "form-control" type="text" id="text1"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="text-align1">Выберите позиционирование текста</label>
+						<select  class = "form-control" id = "text-align1">
+							<option  value="left">Слева</option>
+							<option  value="center">По центру</option>
+							<option  value="right">Справа</option>
+						</select>
+					</div>
+					<button class="btn btn-primary div-btn">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row wrapper">
+		<div class="options" id="options">
+			<ul class="options-container" id = "options-container">
+				<li class="options-field" id="delete">
+					<button class="btn es-btn">Удалить</button>
+				</li>
+				<li class="options-field" data-toggle="modal" data-target="#propModal" id="properties">
+					<button class="btn es-btn">Свойства</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="modal fade" id="propModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Свойства блока</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+				<label for="modalBackColor">Выберите цвет фона</label>
+				<input class = "mg" type="color" id="modalBackColor">
+			</div>
+			<div class="form-group">
+				<label for="modalColor">Выберите цвет текста</label>
+				<input class = "mg" type="color" id="modalColor">
+			</div>
+			  <div class="form-group">
+				  <label>Введите внутренний отступ (px)</label>
+				  <div class="es-input-too-mach-cont">
+					  <input class = "mg" placeholder="С верхнего края" type="number" id="modalPaddingTop">
+					  <input class = "mg" placeholder="С правого края" type="number" id="modalPaddingRight">
+					  <input class = "mg" placeholder="С нижнего края" type="number" id="modalPaddingBottom">
+					  <input class = "mg" placeholder="С левого края" type="number" id="modalPaddingLeft">
+				  </div>
+			  </div>
+			  <div class="form-group">
+				  <label for="modalBorderWidth">Введите ширину границы (px)</label>
+				  <input class = "mg" placeholder="Ширина" type="number" id="modalBorderWidth">
+				  <label for="modalBorderColor">Введите ширину границы (px)</label>
+				  <input class = "mg" placeholder="Цвет" type="color" id="modalBorderColor">
+				  <br />
+				  <label for="modalBorderSide">Выберите сторону границы</label>
+				  <select  class = "form-control" id = "modalBorderSide">
+					  <option value="all">Со всех сторон</option>
+					  <option value="left">Слева</option>
+					  <option value="top">Сверху</option>
+					  <option value="right">Справа</option>
+					  <option value="bottom">Снизу</option>
+				  </select>
+			  </div>
+			<div class="form-group">
+				<label for="modalText">Введите текст</label>
+				<textarea class = "form-control" id="modalText"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="modalWidth">Введите ширину</label>
+				<input class = "mg" type="number" id="modalWidth">
+			</div>
+			<div class="form-group">
+				<label for="modalHeight">Введите высоту</label>
+				<input class = "mg" type="number" id="modalHeight">
+			</div>
+			<div class="form-group">
+				<label for="modalTextAlign">Выберите позиционирование текста</label>
+				<select  class = "form-control" id = "modalTextAlign">
+					<option value="left">Слева</option>
+					<option value="center">По центру</option>
+					<option value="right">Справа</option>
+				</select>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+	        <button type="button" class="btn btn-primary modalSave" data-dismiss="modal">Сохранить</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+</footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src = "scripts/script.js"></script>
+</body>
+</html>

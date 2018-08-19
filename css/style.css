@@ -1,0 +1,95 @@
+html,body{
+	margin: 0;
+	padding: 0;
+}
+html{
+	overflow-x: hidden;
+}
+body{
+    min-height: 100vh;
+}
+.btn{
+	outline: none!important;
+	box-shadow: none!important;
+}
+.bl{
+	border-left: 1px solid #e9e9e9;
+}
+.mg{
+	margin: 10px;
+}
+.hide-toggle{
+	display: none;
+	padding: 0px 10px 10px 10px;
+	border: 1px solid #e9e9e9;
+}
+.pointer{
+	cursor: pointer;
+	transition: all .3s;
+}
+.pointer:hover{
+	color: #34bfe9;
+}
+.div-toggle{
+	display: none;
+}
+#img{
+	width: 200px;
+	height: 200px;
+	background: #e9e9e9;
+}
+.my-p{
+	font-size: 1em;
+	word-wrap: break-word;
+}
+#options{
+	display: none;
+	position: absolute;
+	z-index: 9999;
+}
+#options-container{
+	list-style: none;
+	padding-left: 0;
+}
+.dragging,
+.active{
+	border: 3px solid #2700ff!important;
+}
+.es-btn{
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	background: #2c21d4;
+	color: #fff;
+	text-align: center;
+	border:none;
+	outline: none;
+	padding: 0;
+	cursor: pointer;
+	transition: all .3s ease;
+}
+.es-btn:hover,
+.es-btn:focus,
+.es-btn:active{
+	background-color: transparent;
+	border: 1px solid #c2c2c2;
+	color: #2c21d4;
+}
+.divClass{
+	overflow: hidden;
+}
+.es-input-too-mach-cont{
+	width:100%;
+	height:auto;
+	padding-top:5px;
+	border-top: 1px solid #c2c2c2;
+	border-bottom: 1px solid #c2c2c2;
+	padding-bottom:5px;
+}
+.es-input-too-mach-cont>input{
+	width:100%;
+	margin-left:0;
+	margin-right:0;
+	height:30px;
+	padding-left:15px;
+}
