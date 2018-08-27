@@ -53,7 +53,7 @@ body{
 }
 .dragging,
 .active{
-	border: 3px solid #2700ff!important;
+	outline: 3px solid #2700ff;
 }
 .es-btn{
 	width: 100px;
