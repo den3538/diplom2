@@ -59,7 +59,7 @@ $(document).ready(function() {
 	$(document).on("contextmenu",".divClass",function(e){
 		var self = $(this);
 		e.preventDefault();
-		//$('.divClass').not(this).removeClass('active');
+		$('.divClass').not(this).removeClass('active');
 		$(this).addClass('active');
 		currentEvent = true;
 		var currentPosition = $(self).offset(),
@@ -95,7 +95,7 @@ $(document).ready(function() {
                 !$('#imgModal').is(event.target) &&
                 $('#imgModal').has(event.target).length === 0
 				){
-				//$('.active').removeClass('active');
+				$('.active').removeClass('active');
 				div.hide();
 			}
 });
@@ -193,8 +193,8 @@ $('#imgModal').on('show.bs.modal', function (e) {
         setModalObj(
             modalColorElm.val().length ? modalColorElm.val() : '#000',
             modalBackElm.val().length ? modalBackElm.val() : '#fff',
-            modalWidthElm.val().length ? modalWidthElm.val() : 300,
-            modalHeightElm.val().length ? modalHeightElm.val() : 300,
+            $('#imgModalWidth').val().length ? $('#imgModalWidth').val() : 300,
+            $('#imgModalHeight').val().length ?  $('#imgModalHeight').val() : 300,
             $('#modalTextAlign option:selected').val(),
             modalTextElm.val().length ? modalTextElm.val() :'',
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
@@ -202,7 +202,10 @@ $('#imgModal').on('show.bs.modal', function (e) {
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
             modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
             modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
-            modalBorderColor.val().length ? modalBorderColor.val() : '#000'
+            modalBorderColor.val().length ? modalBorderColor.val() : '#000',
+            $('#imgUrl').val().length ? $('#imgUrl').val() : '',
+            $('#imgTitle').val().length ? $('#imgTitle').val() : '',
+            $('#imgAlt').val().length ? $('#imgAlt').val() : ''
         );
     }
 });
@@ -256,8 +259,8 @@ $('.modalSave').click(function() {
 		});
 
         addDraggable(divcount, 'block');
-		
-		divcount++;	
+
+		divcount++;
 	}
 });
 
@@ -268,10 +271,11 @@ $('.modalSave').click(function() {
     $('.imgModalSave').on('click',function () {
         var activeEl = $('.active');
         if (activeEl.length) {
-            activeEl.css({
-                width: $('#imgModalWidth').val(),
-                height: $('#imgmodalheight').val()
-            });
+            console.log(activeEl);
+            activeEl.width($('#imgModalWidth').val());
+            activeEl.height($('#imgModalHeight').val());
+            activeEl.parent().width($('#imgModalWidth').val());
+            activeEl.parent().height($('#imgModalHeight').val());
             activeEl.attr({
                 src: $('#imgUrl').val(),
                 alt: $('#imgAlt').val(),
@@ -293,8 +297,8 @@ $('.modalSave').click(function() {
                 modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
                 modalBorderColor.val().length ? modalBorderColor.val() : '#000',
                 $('#imgUrl').val().length ? $('#imgUrl').val() : '',
-                $('#imgTitle').val().length ? $('#imgTitle').val() : '',
-                $('#imgAlt').val().length ? $('#imgAlt').val() : ''
+                $('#imgTitle').val().length ? $('#imgTitle').val() : 'Подсказка',
+                $('#imgAlt').val().length ? $('#imgAlt').val() : 'Картинка'
             )
             ;
 
@@ -322,7 +326,6 @@ $('.modalSave').click(function() {
 
             divcount++;
         }
-        console.log(modalObj);
     });
     /*********************** /imgModalSave ***********************/
 
@@ -382,7 +385,7 @@ function setCurrentOptions(activeEl){
     	elmWidth = Number(activeEl.width())+Number(elmPaddingLeft)+Number(elmPaddingRight)+(Number(elmborderWidth*2));
         elmHeight = Number(activeEl.height())+Number(elmPaddingTop)+Number(elmPaddingBot)+(Number(elmborderWidth*2));
 }
-	
+
 function addDraggable(divcount, dataType) {
 	var divCount =  $(".div-count-"+divcount+"");
         divCount.attr('data-type', dataType);
