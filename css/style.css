@@ -23,12 +23,18 @@ body{
 	padding: 0px 10px 10px 10px;
 	border: 1px solid #e9e9e9;
 }
-.pointer{
+.add-something{
 	cursor: pointer;
 	transition: all .3s;
+	font-size:16px;
+	margin:0 10px;
+	user-select: none;
 }
-.pointer:hover{
+.add-something:hover{
 	color: #34bfe9;
+}
+.form-group>input:not(.mg){
+	float:right
 }
 .div-toggle{
 	display: none;
@@ -92,4 +98,20 @@ body{
 	margin-right:0;
 	height:30px;
 	padding-left:15px;
+}
+#download_btn{
+	position: fixed;
+	bottom:10px;
+	right:10px;
+	border:none;
+	outline:none;
+	border-radius: 2px;
+	background: #ff3748;
+	color: #fff;
+	transition: all .3s ease;
+	padding:5px 40px;
+}
+.btn-shadow:hover{
+	cursor: pointer;
+	box-shadow: 1px 2px 6px rgba(0,0,0,.5);
 }

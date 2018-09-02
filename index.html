@@ -10,33 +10,9 @@
 <body>
 <div class="container" id="content-save">
 	<div class="row">
-		<div class="col-4">
-			<div class="col-12">
-				<h3 class = "pointer">Добавить блок</h3>
-				<div class="hide-toggle div-toggle">
-					<div class="form-group">
-						<label for="BackColor1">Выберите цвет фона</label>
-						<input class = "mg" type="color" id="BackColor1">
-					</div>
-					<div class="form-group">
-						<label for="Color1">Выберите цвет текста</label>
-						<input class = "mg" type="color" id="Color1">
-					</div>
-					<div class="form-group">
-						<label for="text1">Введите текст</label>
-						<textarea class = "form-control" type="text" id="text1"></textarea>
-					</div>
-					<div class="form-group">
-						<label for="text-align1">Выберите позиционирование текста</label>
-						<select  class = "form-control" id = "text-align1">
-							<option  value="left">Слева</option>
-							<option  value="center">По центру</option>
-							<option  value="right">Справа</option>
-						</select>
-					</div>
-					<button class="btn btn-primary div-btn">Добавить</button>
-				</div>
-			</div>
+		<div class="col-12">
+			<span class = "add-something pointer">Добавить блок</span>
+			<span class = "add-something pointer-img">Добавить картинку</span>
 		</div>
 	</div>
 </div>
@@ -47,7 +23,7 @@
 				<li class="options-field" id="delete">
 					<button class="btn es-btn">Удалить</button>
 				</li>
-				<li class="options-field" data-toggle="modal" data-target="#propModal" id="properties">
+				<li class="options-field" id="properties">
 					<button class="btn es-btn">Свойства</button>
 				</li>
 			</ul>
@@ -55,6 +31,7 @@
 	</div>
 </div>
 <footer>
+	<!-- block modal -->
 	<div class="modal fade" id="propModal" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -94,11 +71,11 @@
 			</div>
 			<div class="form-group">
 				<label for="modalWidth">Введите ширину</label>
-				<input class = "mg" type="number" id="modalWidth">
+				<input type="number" id="modalWidth">
 			</div>
 			<div class="form-group">
 				<label for="modalHeight">Введите высоту</label>
-				<input class = "mg" type="number" id="modalHeight">
+				<input type="number" id="modalHeight">
 			</div>
 			<div class="form-group">
 				<label for="modalTextAlign">Выберите позиционирование текста</label>
@@ -116,8 +93,48 @@
 	  </div>
 	</div>
 	</div>
+
+	<!-- img modal -->
+	<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Свойства картинки</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+				<label for="imgUrl">Вставьте адрес(URL) картинки</label>
+				<input type="text" id="imgUrl">
+			</div>
+			  <div class="form-group">
+				  <label for="imgModalWidth">Введите ширину в px</label>
+				  <input  type="number" id="imgModalWidth">
+			  </div>
+			  <div class="form-group">
+				  <label for="imgModalHeight">Введите высоту в px</label>
+				  <input  type="number" id="imgModalHeight">
+			  </div>
+			  <div class="form-group">
+				  <label for="imgModalHeight">Введите скрытый текст</label>
+				  <input  type="text" id="imgAlt">
+			  </div>
+			  <div class="form-group">
+				  <label for="imgModalHeight">Введите подсказку</label>
+				  <input type="text" id="imgTitle">
+			  </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+	        <button type="button" class="btn btn-primary imgModalSave" data-dismiss="modal">Сохранить</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
 </footer>
-<button class="download">Download</button>
+<button id="download_btn" class="download btn-shadow">Загрузить</button>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

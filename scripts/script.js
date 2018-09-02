@@ -37,7 +37,10 @@ $(document).ready(function() {
 					width: null,
 					height: null,
 					'text-align': null,
-					text: null
+					text: null,
+                    url: '',
+                    imgtitle: 'image',
+                    imgalt: 'image'
 				  };
 			;
 /******************* /Variables ***************/
@@ -46,6 +49,9 @@ $(document).ready(function() {
 	$(".pointer").click(function() {
 		$('#propModal').modal('show');
 	});
+	$('.pointer-img').click(function () {
+		$('#imgModal').modal('show');
+    });
 /****************** /Click to open adding window ***************/
 
 
@@ -53,14 +59,14 @@ $(document).ready(function() {
 	$(document).on("contextmenu",".divClass",function(e){
 		var self = $(this);
 		e.preventDefault();
-		$('.divClass').not(this).removeClass('active');
+		//$('.divClass').not(this).removeClass('active');
 		$(this).addClass('active');
 		currentEvent = true;
 		var currentPosition = $(self).offset(),
 		elemHeight = $(self).height(),
 		elemBorderWidth = $(self).css('border-width').substr(0,$(self).css('border-width').indexOf('p')),
 		elemWidth = $(self).width();
-		setCurrentOptions(self)
+		setCurrentOptions(self);
 		optionsElement.css({
 				top: Number(currentPosition.top)+Number(elmHeight),
 				left:Number(currentPosition.left)+Number(elemWidth)-100+Number(elemBorderWidth*2)+Number(elmPaddingLeft)+Number(elmPaddingRight)
@@ -85,9 +91,11 @@ $(document).ready(function() {
 				!div.is(event.target) &&
 				div.has(event.target).length === 0 &&
 				!$('#propModal').is(event.target) &&
-				$('#propModal').has(event.target).length === 0
+				$('#propModal').has(event.target).length === 0 &&
+                !$('#imgModal').is(event.target) &&
+                $('#imgModal').has(event.target).length === 0
 				){
-				$('.active').removeClass('active');
+				//$('.active').removeClass('active');
 				div.hide();
 			}
 });
@@ -153,11 +161,59 @@ $('#propModal').on('hide.bs.modal', function(){
 	$('#options').hide();
 });
 
+// img modal
+$('#imgModal').on('show.bs.modal', function (e) {
+    $('#options').hide();
+    var activeEl = $('.active');
+    if (activeEl.length) {
+        setModalObj(
+            activeEl.css('color'),
+            activeEl.css('backgroundColor'),
+            activeEl.width(),
+            activeEl.height(),
+            activeEl.css('text-align'),
+            activeEl.find('.my-p').text(),
+            activeEl.css('padding-top'),
+            activeEl.css('padding-right'),
+            activeEl.css('padding-bottom'),
+            activeEl.css('padding-left'),
+            activeEl.css('border-width'),
+            activeEl.css('border-color'),
+            activeEl.attr('src'),
+            activeEl.attr('title'),
+            activeEl.attr('alt')
+        );
+        $('#imgUrl').val(modalObj.url);
+        $('#imgModalWidth').val(modalObj.width);
+        $('#imgModalHeight').val(modalObj.height);
+        $('#imgAlt').val(modalObj.imgalt);
+        $('#imgTitle').val(modalObj.imgtitle);
+    }
+    else{
+        setModalObj(
+            modalColorElm.val().length ? modalColorElm.val() : '#000',
+            modalBackElm.val().length ? modalBackElm.val() : '#fff',
+            modalWidthElm.val().length ? modalWidthElm.val() : 300,
+            modalHeightElm.val().length ? modalHeightElm.val() : 300,
+            $('#modalTextAlign option:selected').val(),
+            modalTextElm.val().length ? modalTextElm.val() :'',
+            modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
+            modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
+            modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
+            modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
+            modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
+            modalBorderColor.val().length ? modalBorderColor.val() : '#000'
+        );
+    }
+});
+    $('#imgModal').on('hide.bs.modal', function(){
+        $('#options').hide();
+        $('.active').removeClass('active');
+    });
 /*********************** modalSave ***************************/
 
 $('.modalSave').click(function() {
 	if ($('.active').length) {
-		console.log('hi');
 		$('.active').css({
 					background:  modalBackElm.val(),
 					color: modalColorElm.val(),
@@ -170,7 +226,6 @@ $('.modalSave').click(function() {
 		$('.active .my-p').text(modalTextElm.val());
 	}
 	else{
-        console.log('goodbye');
 		setModalObj(
             modalColorElm.val().length ? modalColorElm.val() : '#000',
             modalBackElm.val().length ? modalBackElm.val() : '#fff',
@@ -183,7 +238,7 @@ $('.modalSave').click(function() {
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
             modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
             modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
-            modalBorderColor.val().length ? modalColorElm.val() : '#000'
+            modalBorderColor.val().length ? modalBorderColor.val() : '#000'
 		)
 		;
 
@@ -200,19 +255,7 @@ $('.modalSave').click(function() {
 			zIndex : divcount
 		});
 
-		$(".div-count-"+divcount+"").attr('data-type', 'block');
-		/*$(".div-count-"+divcount+"").addClass(divObj['text-align']);*/
-		$(".div-count-"+divcount+"").draggable({
-			scroll: true,
-			/*containment: 'html',*/
-			start: function(){
-				$(this).addClass('dragging');
-			},
-			stop: function(){
-				$(this).removeClass('dragging');
-			}
-		});
-		$(".div-count-"+divcount+"").resizable();
+        addDraggable(divcount, 'block');
 		
 		divcount++;	
 	}
@@ -220,6 +263,84 @@ $('.modalSave').click(function() {
 
     /*********************** /modalSave ***************************/
 
+    /*********************** imgModalSave ************************/
+
+    $('.imgModalSave').on('click',function () {
+        var activeEl = $('.active');
+        if (activeEl.length) {
+            activeEl.css({
+                width: $('#imgModalWidth').val(),
+                height: $('#imgmodalheight').val()
+            });
+            activeEl.attr({
+                src: $('#imgUrl').val(),
+                alt: $('#imgAlt').val(),
+                title: $('#imgTitle').val()
+            })
+        }
+        else{
+            setModalObj(
+                modalColorElm.val().length ? modalColorElm.val() : '#000',
+                modalBackElm.val().length ? modalBackElm.val() : '#fff',
+                $('#imgModalWidth').val().length ? $('#imgModalWidth').val() : 300,
+                $('#imgModalHeight').val().length ?  $('#imgModalHeight').val() : 300,
+                $('#modalTextAlign option:selected').val(),
+                modalTextElm.val().length ? modalTextElm.val() :'',
+                modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
+                modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
+                modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
+                modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
+                modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
+                modalBorderColor.val().length ? modalBorderColor.val() : '#000',
+                $('#imgUrl').val().length ? $('#imgUrl').val() : '',
+                $('#imgTitle').val().length ? $('#imgTitle').val() : '',
+                $('#imgAlt').val().length ? $('#imgAlt').val() : ''
+            )
+            ;
+
+            $(".wrapper").append("<div class='imgParent'><img class = 'divClass div-count-"+divcount+" imgElm' data-type='img' /></div>");
+            $(".div-count-"+divcount+"").css({
+                width: modalObj.width,
+                height: modalObj.height
+            });
+            $(".div-count-"+divcount+"").attr({
+                alt: modalObj.imgalt,
+                title: modalObj.imgtitle
+            });
+            var divCount =  $(".div-count-"+divcount+"");
+            divCount.parent('.imgParent').draggable({
+                scroll: true,
+                /*containment: 'html',*/
+                start: function(){
+                    $(this).addClass('dragging');
+                },
+                stop: function(){
+                    $(this).removeClass('dragging');
+                }
+            });
+            divCount.resizable();
+
+            divcount++;
+        }
+        console.log(modalObj);
+    });
+    /*********************** /imgModalSave ***********************/
+
+    function setCurrentPropModal() {
+        var dataType = $('.active').data('type');
+        switch (dataType){
+            case 'block':
+                $('#propModal').modal('show');
+                break;
+            case 'img':
+                $('#imgModal').modal('show');
+                break;
+        }
+    };
+
+    $('#properties').click(function () {
+        setCurrentPropModal();
+    });
 function esScrollToEl(name,time = 0.5){
 	 $([document.documentElement, document.body]).animate({
         scrollTop: $(name).offset().top
@@ -234,7 +355,7 @@ function rgb2hex(rgb) {
     return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
-function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor){
+function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image'){
 		modalObj.color= color;
 	  	modalObj.background= bg;
 	  	modalObj.width= width;
@@ -247,7 +368,9 @@ function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRigh
     	modalObj.paddingLeft = paddingLeft;
     	modalObj.borderWidth = borderWidth;
     	modalObj.borderColor = borderColor;
-    	console.log('func',modalObj);
+    	modalObj.url = url;
+    	modalObj.imgtitle = title;
+    	modalObj.imgalt = alt;
 }
 
 function setCurrentOptions(activeEl){
@@ -259,6 +382,21 @@ function setCurrentOptions(activeEl){
     	elmWidth = Number(activeEl.width())+Number(elmPaddingLeft)+Number(elmPaddingRight)+(Number(elmborderWidth*2));
         elmHeight = Number(activeEl.height())+Number(elmPaddingTop)+Number(elmPaddingBot)+(Number(elmborderWidth*2));
 }
-
+	
+function addDraggable(divcount, dataType) {
+	var divCount =  $(".div-count-"+divcount+"");
+        divCount.attr('data-type', dataType);
+        divCount.draggable({
+        scroll: true,
+		/*containment: 'html',*/
+        start: function(){
+            $(this).addClass('dragging');
+        },
+        stop: function(){
+            $(this).removeClass('dragging');
+        }
+    });
+    divCount.resizable();
+}
 
 });
