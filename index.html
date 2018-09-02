@@ -143,8 +143,8 @@
     $('.download').on('click', function(){
         $('#content-save').remove();
         $(this).remove();
-        $('.ui-draggable').removeClass('ui-draggable');
-        $('.ui-resizable').removeClass('ui-resizable');
+        $('.ui-draggable').removeClass('ui-draggable ui-draggable-handle').draggable( 'disable' );;
+        $('.ui-resizable').resizable('disable').removeClass('ui-state-disabled');
         $('.ui-resizable-handle').remove();
         $('<a />').attr({
             download: 'index.html',
