@@ -124,3 +124,20 @@ img.active{
 	cursor: pointer;
 	box-shadow: 1px 2px 6px rgba(0,0,0,.5);
 }
+.full-btn{
+	width:100%;
+	border:1px solid #006687;
+	outline:none;
+	background: #006687;
+	color: #fff;
+	margin:10px 0;
+	box-shadow: none;
+}
+.full-btn:hover,
+.full-btn:focus,
+.full-btn:active{
+
+	background: transparent;
+	color: #006687;
+	cursor:pointer;
+}

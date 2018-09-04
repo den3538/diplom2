@@ -307,10 +307,21 @@ $('.modalSave').click(function() {
                 width: modalObj.width,
                 height: modalObj.height
             });
-            $(".div-count-"+divcount+"").attr({
-                alt: modalObj.imgalt,
-                title: modalObj.imgtitle
-            });
+            if (modalObj.url.length>2){
+                $(".div-count-"+divcount+"").attr({
+                    alt: modalObj.imgalt,
+                    title: modalObj.imgtitle,
+                    src: modalObj.url
+                });
+			}
+			else{
+                $(".div-count-"+divcount+"").attr({
+                    alt: modalObj.imgalt,
+                    title: modalObj.imgtitle,
+                    src: 'image'
+                });
+			}
+
             var divCount =  $(".div-count-"+divcount+"");
             divCount.parent('.imgParent').draggable({
                 scroll: true,
@@ -401,5 +412,22 @@ function addDraggable(divcount, dataType) {
     });
     divCount.resizable();
 }
+
+$('#getImgBtn').change(function (e) {
+    var type_reg = /^image\/(jpg|png|jpeg|bmp|gif|ico)$/,
+	imgFile = this.files[0];
+	if (!type_reg.test(imgFile.type)){
+        alert('Вы можете выбрать только картинку из папки images в корне проекта');
+        this.value='';
+        return false;
+	}
+	else{
+		var hrefUrl = window.location.pathname;
+        hrefUrl = hrefUrl.substr(0,hrefUrl.lastIndexOf('/'));
+        hrefUrl += "/images/"+imgFile.name;
+        $('#imgUrl').val(hrefUrl);
+	}
+
+});
 
 });
