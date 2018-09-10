@@ -1,55 +1,130 @@
 $(document).ready(function() {
-	/******************* Variables ***************/
-			$("#img").resizable();
-			var zIndex = 1,
-				currentEvent = false,
-				divcount=0,
-				blockClickEvent = true,
-				optionsElement = $('#options'),
-				optionsElementBtnDel = $('#options #delete button'),
-				modalColorElm = $('#modalColor'),
-				modalTextElm = $('#modalText'),
-				modalBackElm = $('#modalBackColor'),
-				modalWidthElm =  $('#modalWidth'),
-				modalHeightElm =  $('#modalHeight'),
-				modalPaddingLeft = $('#modalPaddingLeft'),
-				modalPaddingRight = $('#modalPaddingRight'),
-				modalPaddingTop = $('#modalPaddingTop'),
-				modalPaddingBottom = $('#modalPaddingBottom'),
-				modalBorderWidth = $('#modalBorderWidth'),
-				modalBorderColor = $('#modalBorderColor'),
-                elmborderWidth = null,
-                elmPaddingLeft = null,
-                elmPaddingRight = null,
-                elmPaddingTop = null,
-                elmPaddingBot = null,
-				elmWidth = null,
-				elmHeight = null,
-				modalObj = {
-					color: null,
-					background: null,
-					paddingTop: null,
-					paddingRight: null,
-					paddingBottom: null,
-					paddingLeft: null,
-					borderWidth: null,
-					borderColor: null,
-					width: null,
-					height: null,
-					'text-align': null,
-					text: null,
-                    url: '',
-                    imgtitle: 'image',
-                    imgalt: 'image'
-				  };
-			;
-/******************* /Variables ***************/
+    var body = $('body'),
+		templateObj = {};
+    /******************* Variables ***************/
+    $("#img").resizable();
+    var zIndex = 1,
+        currentEvent = false,
+        divcount=0,
+        blockClickEvent = true,
+        optionsElement = $('#options'),
+        optionsElementBtnDel = $('#options #delete button'),
+        modalColorElm = $('#modalColor'),
+        modalTextElm = $('#modalText'),
+        modalBackElm = $('#modalBackColor'),
+        modalWidthElm =  $('#modalWidth'),
+        modalHeightElm =  $('#modalHeight'),
+        modalPaddingLeft = $('#modalPaddingLeft'),
+        modalPaddingRight = $('#modalPaddingRight'),
+        modalPaddingTop = $('#modalPaddingTop'),
+        modalPaddingBottom = $('#modalPaddingBottom'),
+        modalBorderWidth = $('#modalBorderWidth'),
+        modalBorderColor = $('#modalBorderColor'),
+        elmborderWidth = null,
+        elmPaddingLeft = null,
+        elmPaddingRight = null,
+        elmPaddingTop = null,
+        elmPaddingBot = null,
+        elmWidth = null,
+        elmHeight = null,
+        modalObj = {
+            color: null,
+            background: null,
+            paddingTop: null,
+            paddingRight: null,
+            paddingBottom: null,
+            paddingLeft: null,
+            borderWidth: null,
+            borderColor: null,
+            width: null,
+            height: null,
+            'text-align': null,
+            text: null,
+            url: '',
+            imgtitle: 'image',
+            imgalt: 'image',
+            'border-radius': '0px'
+        };
+    ;
+    /******************* /Variables ***************/
+var templateId= null;
+	$(document).on('click','.template-btn',function () {
+		$('.wrapper').html(clone2);
+        templateId = $(this).attr('id');
+        console.log(templateId);
+        if(templateId === 'minimal-template'){
+            body.css('background','linear-gradient(to top, #1e5799 0%,#207cca 39%,#2989d8 58%,#2989d8 58%,#7db9e8 100%)');
+            templateObj = {
+                color: "#fff",
+                background: "#55f15e",
+                paddingTop: 0,
+                paddingRight: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                borderWidth: "1px",
+                borderColor: "#5bd361",
+                width: 150,
+                height: 150,
+                'text-align': "center",
+                text: '',
+                url: '',
+                imgtitle: 'minimal image',
+                imgalt: 'minimal image',
+				'border-radius': '3px'
+            };
+            ;
+		}
+		else if(templateId === 'gotik-template'){
+            body.css('background','#e9e9e9');
+            templateObj = {
+                color: "#ff2e1f",
+                background: "#000",
+                paddingTop: 0,
+                paddingRight: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                borderWidth: "1px",
+                borderColor: "#5bd361",
+                width: 150,
+                height: 150,
+                'text-align': "center",
+                text: '',
+                url: '',
+                imgtitle: 'gotik image',
+                imgalt: 'gotik image',
+                'border-radius': '0px'
+            };
+		}
+		else{
+            templateObj = {
+                color: "#000",
+                background: "#fff",
+                paddingTop: 0,
+                paddingRight: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                borderWidth: "0px",
+                borderColor: "#000",
+                width: 150,
+                height: 150,
+                'text-align': "left",
+                text: '',
+                url: '',
+                imgtitle: 'standart image',
+                imgalt: 'standart image',
+                'border-radius': '0px'
+            };
+		}
+        optionsElement = $('#options');
+    });
+
+
 
 /******************* Click to add ***************/
-	$(".pointer").click(function() {
+	$(document).on('click',".pointer",function() {
 		$('#propModal').modal('show');
 	});
-	$('.pointer-img').click(function () {
+    $(document).on('click','.pointer-img',function () {
 		$('#imgModal').modal('show');
     });
 /****************** /Click to open adding window ***************/
@@ -77,7 +152,7 @@ $(document).ready(function() {
 	/****************** Click to show option block ***************/
 
 	/****************** Click to delete element ***************/
-	$("#delete").click(function(event) {
+	$(document).on('click',"#delete",function(event) {
 		$(".divClass.active").remove();
 		optionsElement.hide();
 	});
@@ -86,7 +161,7 @@ $(document).ready(function() {
 
 	// Click hide option window
 	$(document).on('mouseup',function(event) {
-		div = $('#options');
+		var div = $('#options');
 			if(
 				!div.is(event.target) &&
 				div.has(event.target).length === 0 &&
@@ -118,7 +193,11 @@ $('#propModal').on('show.bs.modal', function (e) {
 		activeEl.css('padding-bottom'),
 		activeEl.css('padding-left'),
 		activeEl.css('border-width'),
-		activeEl.css('border-color')
+		activeEl.css('border-color'),
+        '',
+		'',
+		'',
+        activeEl.css('border-radius')
   		);
 
 
@@ -140,20 +219,25 @@ $('#propModal').on('show.bs.modal', function (e) {
 	  }
   else{
 	  	setModalObj(
-            modalColorElm.val().length ? modalColorElm.val() : '#000',
-	  		modalBackElm.val().length ? modalBackElm.val() : '#fff',
-	  		modalWidthElm.val().length ? modalWidthElm.val() : 300,
-	  		modalHeightElm.val().length ? modalHeightElm.val() : 300,
+            templateObj.color,
+	  		templateObj.background,
+	  		modalWidthElm.val().length ? modalWidthElm.val() : templateObj.width,
+	  		modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
 			$('#modalTextAlign option:selected').val(),
-	  		modalTextElm.val().length ? modalTextElm.val() :'',
+	  		modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
             modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
             modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
-			modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
-			modalBorderColor.val().length ? modalBorderColor.val() : '#000'
+			modalBorderWidth.val().length ? modalBorderWidth.val() : templateObj.borderWidth,
+			templateObj.borderColor,
+			templateObj.url,
+            templateObj.imgtitle,
+      		templateObj.imgalt,
+            templateObj['border-radius']
 		);
   }
+  console.log(modalObj);
 });
 
 $('#propModal').on('hide.bs.modal', function(){
@@ -191,21 +275,22 @@ $('#imgModal').on('show.bs.modal', function (e) {
     }
     else{
         setModalObj(
-            modalColorElm.val().length ? modalColorElm.val() : '#000',
-            modalBackElm.val().length ? modalBackElm.val() : '#fff',
-            $('#imgModalWidth').val().length ? $('#imgModalWidth').val() : 300,
-            $('#imgModalHeight').val().length ?  $('#imgModalHeight').val() : 300,
+            templateObj.color,
+            templateObj.background,
+            modalWidthElm.val().length ? modalWidthElm.val() : templateObj.width,
+            modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
             $('#modalTextAlign option:selected').val(),
-            modalTextElm.val().length ? modalTextElm.val() :'',
+            modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
             modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
             modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
-            modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
-            modalBorderColor.val().length ? modalBorderColor.val() : '#000',
-            $('#imgUrl').val().length ? $('#imgUrl').val() : '',
-            $('#imgTitle').val().length ? $('#imgTitle').val() : '',
-            $('#imgAlt').val().length ? $('#imgAlt').val() : ''
+            modalBorderWidth.val().length ? modalBorderWidth.val() : templateObj.borderWidth,
+            templateObj.borderColor,
+            templateObj.url,
+            templateObj.imgtitle,
+            templateObj.imgalt,
+            templateObj['border-radius']
         );
     }
 });
@@ -229,20 +314,28 @@ $('.modalSave').click(function() {
 		$('.active .my-p').text(modalTextElm.val());
 	}
 	else{
-		setModalObj(
-            modalColorElm.val().length ? modalColorElm.val() : '#000',
-            modalBackElm.val().length ? modalBackElm.val() : '#fff',
-            modalWidthElm.val().length ? modalWidthElm.val() : 300,
-            modalHeightElm.val().length ? modalHeightElm.val() : 300,
+        console.log('before modalSaveFunc templateObj',templateObj);
+        console.log('before modalSaveFunc modalObj',modalObj);
+        setModalObj(
+            templateObj.color,
+            templateObj.background,
+            modalWidthElm.val().length ? modalWidthElm.val() : templateObj.width,
+            modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
             $('#modalTextAlign option:selected').val(),
-            modalTextElm.val().length ? modalTextElm.val() :'',
+            modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
             modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
             modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
-            modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
-            modalBorderColor.val().length ? modalBorderColor.val() : '#000'
-		)
+            modalBorderWidth.val().length ? modalBorderWidth.val() : templateObj.borderWidth,
+            templateObj.borderColor,
+            templateObj.url,
+            templateObj.imgtitle,
+            templateObj.imgalt,
+            templateObj['border-radius']
+        );
+        console.log('after modalSaveFunc templateObj',templateObj);
+        console.log('after modalSaveFunc modalObj',modalObj);
 		;
 
 
@@ -255,7 +348,8 @@ $('.modalSave').click(function() {
             'text-align': modalObj['text-align'],
 			padding: ''+modalObj.paddingTop+'px '+modalObj.paddingRight+'px '+modalObj.paddingBottom+'px '+modalObj.paddingLeft+'px',
             border: ''+modalObj.borderWidth+'px solid '+modalObj.borderColor,
-			zIndex : divcount
+			zIndex : divcount,
+			'border-radius': modalObj['border-radius']
 		});
 
         addDraggable(divcount, 'block');
@@ -284,21 +378,22 @@ $('.modalSave').click(function() {
         }
         else{
             setModalObj(
-                modalColorElm.val().length ? modalColorElm.val() : '#000',
-                modalBackElm.val().length ? modalBackElm.val() : '#fff',
-                $('#imgModalWidth').val().length ? $('#imgModalWidth').val() : 300,
-                $('#imgModalHeight').val().length ?  $('#imgModalHeight').val() : 300,
+                templateObj.color,
+                templateObj.background,
+                modalWidthElm.val().length ? modalWidthElm.val() : templateObj.width,
+                modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
                 $('#modalTextAlign option:selected').val(),
-                modalTextElm.val().length ? modalTextElm.val() :'',
+                modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
                 modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
                 modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
                 modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
                 modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
-                modalBorderWidth.val().length ? modalBorderWidth.val() : '0',
-                modalBorderColor.val().length ? modalBorderColor.val() : '#000',
-                $('#imgUrl').val().length ? $('#imgUrl').val() : '',
-                $('#imgTitle').val().length ? $('#imgTitle').val() : 'Подсказка',
-                $('#imgAlt').val().length ? $('#imgAlt').val() : 'Картинка'
+                modalBorderWidth.val().length ? modalBorderWidth.val() : templateObj.borderWidth,
+                templateObj.borderColor,
+                templateObj.url,
+                templateObj.imgtitle,
+                templateObj.imgalt,
+                templateObj['border-radius']
             )
             ;
 
@@ -352,7 +447,7 @@ $('.modalSave').click(function() {
         }
     };
 
-    $('#properties').click(function () {
+    $(document).on('click','#properties',function () {
         setCurrentPropModal();
     });
 function esScrollToEl(name,time = 0.5){
@@ -369,7 +464,7 @@ function rgb2hex(rgb) {
     return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
-function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image'){
+function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image',borderRadius='0px' ){
 		modalObj.color= color;
 	  	modalObj.background= bg;
 	  	modalObj.width= width;
@@ -385,6 +480,7 @@ function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRigh
     	modalObj.url = url;
     	modalObj.imgtitle = title;
     	modalObj.imgalt = alt;
+    	modalObj['border-radius']=borderRadius;
 }
 
 function setCurrentOptions(activeEl){
@@ -427,7 +523,15 @@ $('#getImgBtn').change(function (e) {
         hrefUrl += "/images/"+imgFile.name;
         $('#imgUrl').val(hrefUrl);
 	}
-
 });
+    modalColorElm.change(function () {
+        templateObj.color = modalColorElm.val();
+    });
+    modalBackElm.change(function () {
+        templateObj.background = modalBackElm.val();
+    });
+    modalBorderColor.change(function () {
+        templateObj.borderColor = modalBackElm.val();
+    });
 
 });

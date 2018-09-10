@@ -4,30 +4,62 @@
 	  <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/yeti/bootstrap.min.css" rel="stylesheet" >
 	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Mukta" rel="stylesheet">
 	<meta charset="UTF-8">
 	<title>Diplom</title>
 </head>
 <body>
-<div class="container" id="content-save">
+<template class="container" id="content-save">
 	<div class="row">
 		<div class="col-12">
 			<span class = "add-something pointer">Добавить блок</span>
 			<span class = "add-something pointer-img">Добавить картинку</span>
 		</div>
 	</div>
-</div>
+	<div class="options" id="options">
+		<ul class="options-container" id = "options-container">
+			<li class="options-field" id="delete">
+				<button class="btn es-btn">Удалить</button>
+			</li>
+			<li class="options-field" id="properties">
+				<button class="btn es-btn">Свойства</button>
+			</li>
+		</ul>
+	</div>
+</template>
 <div class="container-fluid">
-	<div class="row wrapper">
-		<div class="options" id="options">
-			<ul class="options-container" id = "options-container">
-				<li class="options-field" id="delete">
-					<button class="btn es-btn">Удалить</button>
-				</li>
-				<li class="options-field" id="properties">
-					<button class="btn es-btn">Свойства</button>
-				</li>
-			</ul>
+
+	<template id="changeMode">
+		<h3 class="text-center" style="width: 100%; margin-bottom: 50px; margin-top: 30px;">Выберите стандартный шаблон элементов</h3>
+		<div class="container">
+			<div class="row change-template">
+				<div class="col-lg-4 minimal">
+					<h4>Минималистичный шаблон</h4>
+					<p class="template-description">
+						В данном шаблоне стандартные элементы содержат округленные края, спокойные цвета, тонкий шрифт,  наименьший размер границ и несут в себе минимум ненужной информации.
+					</p>
+					<button class="btn btn-primary template-btn" id="minimal-template">Выбрать</button>
+				</div>
+				<div class="col-lg-4 gotik">
+					<h4>Готический шаблон</h4>
+					<p class="template-description">
+						В данном шаблоне стандартные элементы имеют острые края, темные или вызывающие цвета, толстый шрифт. Прекрасно подходит для выделения конктерных элементов и обращения внимания.
+					</p>
+					<button class="template-btn" id="gotik-template">Выбрать</button>
+				</div>
+				<div class="col-lg-4 standart">
+					<h4>Стандартный шаблон</h4>
+					<p class="template-description">
+						Данный шаблон использует встроенные стили для создания элементов без параметров.
+					</p>
+					<button class="btn btn-primary template-btn" id="standart-template">Выбрать</button>
+				</div>
+			</div>
 		</div>
+	</template>
+
+	<div class="row wrapper">
+
 	</div>
 </div>
 <footer>
@@ -135,14 +167,29 @@
 	</div>
 	</div>
 </footer>
+
+
+
 <button id="download_btn" class="download btn-shadow">Загрузить</button>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script src = "scripts/script.js"></script>
+
+
+<script>
+    var temp1 = document.getElementById("changeMode"),
+        temp2 = document.querySelector("#content-save");
+    var clone1 = temp1.content.cloneNode(true);
+    var clone2 = temp2.content.cloneNode(true);
+
+    $('.wrapper').append(clone1);
+    /*$('.wrapper').append(clone2);*/
+</script>
+
 <script>
     $('.download').on('click', function(){
-        $('#content-save').remove();
+        $('#content-save,.add-something').remove();
         $(this).remove();
         $('.ui-draggable').removeClass('ui-draggable ui-draggable-handle').draggable( 'disable' );;
         $('.ui-resizable').resizable('disable').removeClass('ui-state-disabled');

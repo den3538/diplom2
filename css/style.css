@@ -31,7 +31,7 @@ body{
 	user-select: none;
 }
 .add-something:hover{
-	color: #34bfe9;
+	color: #84ff88;
 }
 .form-group>input:not(.mg){
 	float:right
@@ -140,4 +140,48 @@ img.active{
 	background: transparent;
 	color: #006687;
 	cursor:pointer;
+}
+.change-template{
+	font-family: 'Mukta', sans-serif;
+}
+.change-template h4{
+	text-align: center;
+	margin-bottom:30px;
+}
+.template-btn{
+	width:200px;
+	display: block;
+	margin:30px auto;
+}
+.change-template .col-lg-4:not(:first-child){
+	border-left: 1px solid #c2c2c2;
+}
+#minimal-template{
+	border-radius: 3px;
+	border: 1px solid #5bd361;
+	background: #55f15e;
+	color: #fff;
+	transition: all .3s ease;
+}
+#minimal-template:hover,
+#minimal-template:active,
+#minimal-template:focus{
+	background: transparent;
+	color: #55f15e;
+}
+#gotik-template{
+	border-radius: 0;
+	border: 1px solid #ff2e1f;
+	background: #000;
+	color: #ff2e1f;
+	transition: all .3s ease;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-weight:600;
+	cursor: pointer;
+}
+#gotik-template:hover,
+#gotik-template:focus,
+#gotik-template:active{
+	color: #fff;
 }
