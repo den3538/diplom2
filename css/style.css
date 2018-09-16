@@ -64,11 +64,13 @@ body{
 img.active{
 	border: 3px solid #2700ff;
 }
-.imgParent{
+.imgParent,.videoParent{
 	background: #e9e9e9;
 }
-.imgParent .ui-wrapper{
+.imgParent .ui-wrapper,.videoParent .ui-wrapper{
 	overflow: visible!important;
+	min-width: 100% !important;
+	min-height: 100% !important;
 }
 .es-btn{
 	width: 100px;
@@ -184,4 +186,32 @@ img.active{
 #gotik-template:focus,
 #gotik-template:active{
 	color: #fff;
+}
+.img-block{
+	width:100%;
+	height:200px;
+}
+.img-block img{
+	width:100%;
+	height:100%;
+	transition: all .3s ease;
+	background: #fff;
+	position: relative;
+}
+.img-block:hover img{
+	position: absolute;
+	width:600px;
+	height:auto;
+	top: 50%;
+	left:0;
+	border:1px solid #000;
+	z-index: 999;
+	transform: translate(-10%,-50%);
+}
+.es-template{
+	width:100%;
+}
+.videoElm{
+	min-width:100%;
+	min-height:100%;
 }

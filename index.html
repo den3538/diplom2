@@ -14,6 +14,7 @@
 		<div class="col-12">
 			<span class = "add-something pointer">Добавить блок</span>
 			<span class = "add-something pointer-img">Добавить картинку</span>
+			<span class = "add-something pointer-video">Добавить видео</span>
 		</div>
 	</div>
 	<div class="options" id="options">
@@ -30,29 +31,37 @@
 <div class="container-fluid">
 
 	<template id="changeMode">
-		<h3 class="text-center" style="width: 100%; margin-bottom: 50px; margin-top: 30px;">Выберите стандартный шаблон элементов</h3>
-		<div class="container">
-			<div class="row change-template">
-				<div class="col-lg-4 minimal">
-					<h4>Минималистичный шаблон</h4>
-					<p class="template-description">
-						В данном шаблоне стандартные элементы содержат округленные края, спокойные цвета, тонкий шрифт,  наименьший размер границ и несут в себе минимум ненужной информации.
-					</p>
-					<button class="btn btn-primary template-btn" id="minimal-template">Выбрать</button>
-				</div>
-				<div class="col-lg-4 gotik">
-					<h4>Готический шаблон</h4>
-					<p class="template-description">
-						В данном шаблоне стандартные элементы имеют острые края, темные или вызывающие цвета, толстый шрифт. Прекрасно подходит для выделения конктерных элементов и обращения внимания.
-					</p>
-					<button class="template-btn" id="gotik-template">Выбрать</button>
-				</div>
-				<div class="col-lg-4 standart">
-					<h4>Стандартный шаблон</h4>
-					<p class="template-description">
-						Данный шаблон использует встроенные стили для создания элементов без параметров.
-					</p>
-					<button class="btn btn-primary template-btn" id="standart-template">Выбрать</button>
+		<div class="es-template">
+			<h3 class="text-center " style="width: 100%; margin-bottom: 50px; margin-top: 30px;">Выберите стандартный шаблон элементов</h3>
+			<div class="container">
+				<div class="row change-template">
+					<div class="col-lg-4 minimal">
+						<h4>Минималистичный шаблон</h4>
+						<p class="template-description">
+							В данном шаблоне стандартные элементы содержат округленные края, спокойные цвета, тонкий шрифт,  наименьший размер границ и несут в себе минимум ненужной информации.
+						</p>
+						<div class="img-block">
+							<img src="images/minimal.jpg" alt="minimal example">
+						</div>
+						<button class="btn btn-primary template-btn" id="minimal-template">Выбрать</button>
+					</div>
+					<div class="col-lg-4 gotik">
+						<h4>Готический шаблон</h4>
+						<p class="template-description">
+							В данном шаблоне стандартные элементы имеют острые края, темные или вызывающие цвета, толстый шрифт. Прекрасно подходит для выделения конктерных элементов и обращения внимания.
+						</p>
+						<div class="img-block">
+							<img src="images/gotik.jpg" alt="gotik example">
+						</div>
+						<button class="template-btn" id="gotik-template">Выбрать</button>
+					</div>
+					<div class="col-lg-4 standart">
+						<h4>Стандартный шаблон</h4>
+						<p class="template-description">
+							Данный шаблон использует встроенные стили для создания элементов без параметров.
+						</p>
+						<button class="btn btn-primary template-btn" id="standart-template">Выбрать</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -117,6 +126,10 @@
 					<option value="right">Справа</option>
 				</select>
 	      </div>
+			  <div class="form-group">
+				  <label for="zIndexBlock">Установите z-index</label>
+				  <input  type="number" id="zIndexBlock">
+			  </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
 	        <button type="button" class="btn btn-primary modalSave" data-dismiss="modal">Сохранить</button>
@@ -158,6 +171,10 @@
 				  <label for="imgModalHeight">Введите подсказку</label>
 				  <input type="text" id="imgTitle">
 			  </div>
+			  <div class="form-group">
+				  <label for="zIndexImg">Установите z-index</label>
+				  <input  type="number" id="zIndexImg">
+			  </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
 	        <button type="button" class="btn btn-primary imgModalSave" data-dismiss="modal">Сохранить</button>
@@ -165,6 +182,51 @@
 	    </div>
 	  </div>
 	</div>
+	</div>
+
+	<!-- video modal -->
+	<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Свойства видео</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="imgUrl">Вставьте адрес(URL) видео</label>
+						<input type="text" id="videoUrl">
+						<input type="file" class="full-btn" id = "getVideoBtn" placeholder="Выберите файл">
+					</div>
+					<div class="form-group">
+						<label for="videoModalWidth">Введите ширину в px</label>
+						<input  type="number" id="videoModalWidth">
+					</div>
+					<div class="form-group">
+						<label for="videoModalHeight">Введите высоту в px</label>
+						<input  type="number" id="videoModalHeight">
+					</div>
+					<div class="form-group">
+						<label for="videoAlt">Введите скрытый текст</label>
+						<input  type="text" id="videoAlt">
+					</div>
+					<div class="form-group">
+						<label for="videoTitle">Введите подсказку</label>
+						<input type="text" id="videoTitle">
+					</div>
+					<div class="form-group">
+						<label for="zIndexVideo">Установите z-index</label>
+						<input  type="number" id="zIndexVideo">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn btn-primary videoModalSave" data-dismiss="modal">Сохранить</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </footer>
 
@@ -178,26 +240,23 @@
 
 
 <script>
-    var temp1 = document.getElementById("changeMode"),
-        temp2 = document.querySelector("#content-save");
-    var clone1 = temp1.content.cloneNode(true);
-    var clone2 = temp2.content.cloneNode(true);
-
-    $('.wrapper').append(clone1);
-    /*$('.wrapper').append(clone2);*/
-</script>
-
-<script>
     $('.download').on('click', function(){
-        $('#content-save,.add-something').remove();
-        $(this).remove();
-        $('.ui-draggable').removeClass('ui-draggable ui-draggable-handle').draggable( 'disable' );;
+        $('#content-save,.add-something').hide();
+        $(this).hide();
+        $('.es-template').remove();
+        $('.ui-draggable').removeClass('ui-draggable ui-draggable-handle').draggable( 'disable' );
         $('.ui-resizable').resizable('disable').removeClass('ui-state-disabled');
         $('.ui-resizable-handle').remove();
         $('<a />').attr({
             download: 'index.html',
-            href: "data:text/html," + $('html').html()
-        })[0].click()
+            href: "data:text/html," + $('html').html(),
+            target: "_blank"
+        })[0].click();
+        $('#content-save,.add-something').show();
+        $(this).show();
+        $('.ui-draggable').addClass('ui-draggable ui-draggable-handle').draggable( 'enable' );
+        $('.ui-resizable').resizable('enable').addClass('ui-state-disabled');
+        $('.ui-resizable-handle').remove();
     });
 </script>
 </body>

@@ -1,3 +1,12 @@
+var temp1 = document.getElementById("changeMode"),
+    temp2 = document.querySelector("#content-save");
+var clone1 = temp1.content.cloneNode(true);
+var clone2 = temp2.content.cloneNode(true);
+
+$('.wrapper').append(clone1);
+/*$('.wrapper').append(clone2);*/
+
+
 $(document).ready(function() {
     var body = $('body'),
 		templateObj = {};
@@ -45,6 +54,13 @@ $(document).ready(function() {
             imgalt: 'image',
             'border-radius': '0px'
         };
+        videoObj = {
+            url: '',
+            videotitle: 'video',
+            videoalt: 'video',
+            width: null,
+            height: null
+        }
     ;
     /******************* /Variables ***************/
 var templateId= null;
@@ -70,7 +86,10 @@ var templateId= null;
                 url: '',
                 imgtitle: 'minimal image',
                 imgalt: 'minimal image',
-				'border-radius': '3px'
+				'border-radius': '3px',
+                videourl:'',
+                videotitle:"minimal video",
+                videoalt:"minimal video"
             };
             ;
 		}
@@ -92,7 +111,10 @@ var templateId= null;
                 url: '',
                 imgtitle: 'gotik image',
                 imgalt: 'gotik image',
-                'border-radius': '0px'
+                'border-radius': '0px',
+                videourl:'',
+                videotitle:"gotik video",
+                videoalt:"gotik video"
             };
 		}
 		else{
@@ -112,7 +134,10 @@ var templateId= null;
                 url: '',
                 imgtitle: 'standart image',
                 imgalt: 'standart image',
-                'border-radius': '0px'
+                'border-radius': '0px',
+                videourl:'',
+                videotitle:"standart video",
+                videoalt:"standart video"
             };
 		}
         optionsElement = $('#options');
@@ -126,6 +151,9 @@ var templateId= null;
 	});
     $(document).on('click','.pointer-img',function () {
 		$('#imgModal').modal('show');
+    });
+    $(document).on('click','.pointer-video',function () {
+        $('#videoModal').modal('show');
     });
 /****************** /Click to open adding window ***************/
 
@@ -168,11 +196,14 @@ var templateId= null;
 				!$('#propModal').is(event.target) &&
 				$('#propModal').has(event.target).length === 0 &&
                 !$('#imgModal').is(event.target) &&
-                $('#imgModal').has(event.target).length === 0
+                $('#imgModal').has(event.target).length === 0 &&
+                !$('#videoModal').is(event.target) &&
+                $('#videoModal').has(event.target).length === 0
 				){
 				$('.active').removeClass('active');
 				div.hide();
 			}
+
 });
 
 
@@ -199,6 +230,9 @@ $('#propModal').on('show.bs.modal', function (e) {
 		'',
         activeEl.css('border-radius')
   		);
+  	setModalObjZindex(
+  	    activeEl.css('z-index')
+    );
 
 
           setCurrentOptions(activeEl);
@@ -215,6 +249,7 @@ $('#propModal').on('show.bs.modal', function (e) {
 	  modalPaddingBottom.val(elmPaddingBot);
 	  modalBorderWidth.val(elmborderWidth);
 	  modalBorderColor.val(rgb2hex(modalObj.borderColor));
+	  $('#zIndexBlock').val(modalObj.zindex);
 
 	  }
   else{
@@ -236,6 +271,9 @@ $('#propModal').on('show.bs.modal', function (e) {
       		templateObj.imgalt,
             templateObj['border-radius']
 		);
+      setModalObjZindex(
+          $('#zIndexBlock').val().length ? $('#zIndexBlock').val() : '1'
+      );
   }
   console.log(modalObj);
 });
@@ -267,11 +305,13 @@ $('#imgModal').on('show.bs.modal', function (e) {
             activeEl.attr('title'),
             activeEl.attr('alt')
         );
+        setModalObjZindex(activeEl.css('z-index'));
         $('#imgUrl').val(modalObj.url);
         $('#imgModalWidth').val(modalObj.width);
         $('#imgModalHeight').val(modalObj.height);
         $('#imgAlt').val(modalObj.imgalt);
         $('#imgTitle').val(modalObj.imgtitle);
+        $('#zIndexImg').val(modalObj.zIndex);
     }
     else{
         setModalObj(
@@ -292,12 +332,58 @@ $('#imgModal').on('show.bs.modal', function (e) {
             templateObj.imgalt,
             templateObj['border-radius']
         );
+        setModalObjZindex(
+            $('#zIndexImg').val().length ?  $('#zindeximg').val(): '1'
+        )
     }
 });
     $('#imgModal').on('hide.bs.modal', function(){
         $('#options').hide();
         $('.active').removeClass('active');
     });
+
+    // videoModal
+    $('#videoModal').on('show.bs.modal', function (e) {
+        $('#options').hide();
+        var activeEl = $('.active');
+        if (activeEl.length) {
+            setVideoOpt(
+                activeEl.width(),
+                activeEl.height(),
+                $('#videoUrl').attr('video-src'),
+                activeEl.attr('alt'),
+                activeEl.attr('title')
+            );
+
+            console.log(activeEl.attr('src'));
+            setModalObjZindex(activeEl.css('z-index'));
+            $('#videoUrl').val('');
+            $('#videoModalWidth').val(videoObj.width);
+            $('#videoModalHeight').val(videoObj.height);
+            $('#videoAlt').val(videoObj.videoalt);
+            $('#videoTitle').val(videoObj.videotitle);
+            $('#zIndexVideo').val(videoObj.zIndex);
+        }
+        else{
+            setVideoOpt(
+            $('#videoModalWidth').val().length ? $('#videoModalWidth').val() : templateObj.width,
+            $('#videoModalHeight').val().length ? $('#videoModalHeight').val() : templateObj.height,
+                $('#videoUrl').val().length ? $('#videoUrl').val() : templateObj.videourl,
+            $('#videoAlt').val().length ? $('#videoAlt').val() : templateObj.videoalt,
+            $('#videoTitle').val().length  ? $('#videoTitle').val() : templateObj.videotitle
+            );
+
+            setModalObjZindex(
+                $('#zIndexVideo').val().length ?  $('#zIndexVideo').val(): '1'
+            )
+        }
+    });
+    $('#videoModal').on('hide.bs.modal', function(){
+        $('#options').hide();
+        $('.active').removeClass('active');
+    });
+
+
 /*********************** modalSave ***************************/
 
 $('.modalSave').click(function() {
@@ -309,7 +395,8 @@ $('.modalSave').click(function() {
 					height: modalHeightElm.val(),
 					'text-align': $('#modalTextAlign option:selected').val(),
 					padding: modalPaddingTop.val()+'px '+modalPaddingRight.val()+'px '+modalPaddingBottom.val()+'px '+modalPaddingLeft.val()+'px',
-					border: modalBorderWidth.val()+'px solid '+ modalBorderColor.val()
+					border: modalBorderWidth.val()+'px solid '+ modalBorderColor.val(),
+                    'z-index': $('#zIndexBlock').val()
 				});
 		$('.active .my-p').text(modalTextElm.val());
 	}
@@ -334,6 +421,9 @@ $('.modalSave').click(function() {
             templateObj.imgalt,
             templateObj['border-radius']
         );
+        setModalObjZindex(
+            $('#zIndexBlock').val().length ? $('#zIndexBlock').val() : '1'
+        );
         console.log('after modalSaveFunc templateObj',templateObj);
         console.log('after modalSaveFunc modalObj',modalObj);
 		;
@@ -348,8 +438,8 @@ $('.modalSave').click(function() {
             'text-align': modalObj['text-align'],
 			padding: ''+modalObj.paddingTop+'px '+modalObj.paddingRight+'px '+modalObj.paddingBottom+'px '+modalObj.paddingLeft+'px',
             border: ''+modalObj.borderWidth+'px solid '+modalObj.borderColor,
-			zIndex : divcount,
-			'border-radius': modalObj['border-radius']
+			zIndex : modalObj.zIndex,
+			'border-radius': modalObj['border-radius'],
 		});
 
         addDraggable(divcount, 'block');
@@ -371,9 +461,15 @@ $('.modalSave').click(function() {
             activeEl.parent().width($('#imgModalWidth').val());
             activeEl.parent().height($('#imgModalHeight').val());
             activeEl.attr({
-                src: $('#imgUrl').val(),
+                src: $('#imgUrl').val().length>1 ?  $('#imgUrl').val() :  $('#imgUrl').attr('img-src'),
                 alt: $('#imgAlt').val(),
                 title: $('#imgTitle').val()
+            })
+            activeEl.css({
+                'z-index': $('#zIndexImg').val()
+            });
+            activeEl.parent().css({
+                'z-index': $('#zIndexImg').val()
             })
         }
         else{
@@ -390,17 +486,21 @@ $('.modalSave').click(function() {
                 modalPaddingLeft.val().length ? modalPaddingLeft.val() :'0',
                 modalBorderWidth.val().length ? modalBorderWidth.val() : templateObj.borderWidth,
                 templateObj.borderColor,
-                templateObj.url,
+                $('#imgUrl').attr('img-src'),
                 templateObj.imgtitle,
                 templateObj.imgalt,
                 templateObj['border-radius']
             )
+            setModalObjZindex(
+                $('#zIndexImg').val().length ? $('#zIndexImg').val() : '1'
+            )
             ;
-
+            console.log(modalObj);
             $(".wrapper").append("<div class='imgParent'><img class = 'divClass div-count-"+divcount+" imgElm' data-type='img' /></div>");
             $(".div-count-"+divcount+"").css({
                 width: modalObj.width,
-                height: modalObj.height
+                height: modalObj.height,
+                'z-index': modalObj.zIndex
             });
             if (modalObj.url.length>2){
                 $(".div-count-"+divcount+"").attr({
@@ -431,9 +531,96 @@ $('.modalSave').click(function() {
             divCount.resizable();
 
             divcount++;
+            $('#imgUrl').attr('img-src','');
         }
     });
     /*********************** /imgModalSave ***********************/
+
+
+
+    /*********************** videoModalSave ************************/
+
+    $('.videoModalSave').on('click',function () {
+        var activeEl = $('.active');
+        if (activeEl.length) {
+            console.log(activeEl);
+            activeEl.width($('#videoModalWidth').val());
+            activeEl.height($('#videoModalHeight').val());
+            activeEl.parent().width($('#videoModalWidth').val());
+            activeEl.parent().height($('#videoModalHeight').val());
+            activeEl.attr({
+                src: $('#videoUrl').val().length>1 ?  $('#videoUrl').val() :  $('#videoUrl').attr('video-src'),
+                alt: $('#videoAlt').val(),
+                title: $('#videoTitle').val()
+            })
+            activeEl.css({
+                'z-index': $('#zIndexVideo').val()
+            });
+            activeEl.parent().css({
+                'z-index': $('#zIndexVideo').val()
+            })
+        }
+        else{
+            setVideoOpt(
+                $('#videoModalWidth').val().length ? $('#videoModalWidth').val() : templateObj.width,
+                $('#videoModalHeight').val().length ? $('#videoModalHeight').val() : templateObj.height,
+                $('#videoUrl').val().length ? $('#videoUrl').val() :  $('#videoUrl').attr('video-src'),
+                $('#videoAlt').val().length ? $('#videoAlt').val() : templateObj.videoalt,
+                $('#videoTitle').val().length  ? $('#videoTitle').val() : templateObj.videotitle
+            );
+
+            setModalObjZindex(
+                $('#zIndexVideo').val().length ?  $('#zIndexVideo').val(): '1'
+            )
+            ;
+            console.log(videoObj);
+            $(".wrapper").append("<div class='videoParent'>" +
+                "<video class = 'divClass div-count-"+divcount+" videoElm' data-type='video' >" +
+                "<source type='video/mp4'>"+
+                "</video></div>");
+            $(".div-count-"+divcount+"").css({
+                width: videoObj.width,
+                height: videoObj.height,
+                'z-index': modalObj.zIndex
+            });
+
+            if (videoObj.videourl.length>2){
+                $(".div-count-"+divcount+"").attr({
+                    alt: videoObj.imgalt,
+                    title: videoObj.imgtitle
+                });
+                $(".div-count-"+divcount+" source").attr({
+                    src: videoObj.videourl
+                });
+            }
+            else{
+                $(".div-count-"+divcount+"").attr({
+                    alt: modalObj.imgalt,
+                    title: modalObj.imgtitle
+                });
+                $(".div-count-"+divcount+" source").attr({
+                    src: 'video'
+                });
+            }
+
+            var divCount =  $(".div-count-"+divcount+"");
+            divCount.parent('.videoParent').draggable({
+                scroll: true,
+                /*containment: 'html',*/
+                start: function(){
+                    $(this).addClass('dragging');
+                },
+                stop: function(){
+                    $(this).removeClass('dragging');
+                }
+            });
+            divCount.parent('.videoParent').resizable();
+
+            divcount++;
+        }
+    });
+
+    /*********************** /videoModalSave ***********************/
 
     function setCurrentPropModal() {
         var dataType = $('.active').data('type');
@@ -444,6 +631,8 @@ $('.modalSave').click(function() {
             case 'img':
                 $('#imgModal').modal('show');
                 break;
+            case 'video':
+                $('#videoModal').modal('show');
         }
     };
 
@@ -483,6 +672,18 @@ function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRigh
     	modalObj['border-radius']=borderRadius;
 }
 
+function setVideoOpt(width,height,url,alt,title) {
+    videoObj.width=width;
+    videoObj.height=height;
+    videoObj.videourl = url;
+    videoObj.videotitle = title;
+    videoObj.videoalt = alt;
+}
+
+function setModalObjZindex(zIndex) {
+        modalObj.zindex = zIndex;
+}
+
 function setCurrentOptions(activeEl){
     	elmborderWidth = activeEl.css('border-width').substring(0, activeEl.css('border-width').lastIndexOf('p'));
         elmPaddingLeft = activeEl.css('padding-left').substring(0, activeEl.css('padding-left').lastIndexOf('p'));
@@ -518,12 +719,44 @@ $('#getImgBtn').change(function (e) {
         return false;
 	}
 	else{
-		var hrefUrl = window.location.pathname;
+        var reader  = new FileReader(),
+            result = '';
+        reader.onloadend = function () {
+            $('#imgUrl').attr('img-src',reader.result);
+        }
+        reader.readAsDataURL(imgFile);
+	/*	var hrefUrl = window.location.pathname;
         hrefUrl = hrefUrl.substr(0,hrefUrl.lastIndexOf('/'));
         hrefUrl += "/images/"+imgFile.name;
-        $('#imgUrl').val(hrefUrl);
+        $('#imgUrl').val(hrefUrl);*/
 	}
 });
+
+    $('#getVideoBtn').change(function (e) {
+        var type_reg = /^video\/(mp4)$/,
+            videoFile = this.files[0];
+        if (!type_reg.test(videoFile.type)){
+            console.log(videoFile.type)
+            alert('Вы можете выбрать только Видео');
+            this.value='';
+            return false;
+        }
+        else{
+            var reader  = new FileReader(),
+                result = '';
+            reader.onloadend = function () {
+                $('#videoUrl').attr('video-src',reader.result);
+            }
+            reader.readAsDataURL(videoFile);
+            /*	var hrefUrl = window.location.pathname;
+             hrefUrl = hrefUrl.substr(0,hrefUrl.lastIndexOf('/'));
+             hrefUrl += "/images/"+imgFile.name;
+             $('#imgUrl').val(hrefUrl);*/
+        }
+    });
+
+
+
     modalColorElm.change(function () {
         templateObj.color = modalColorElm.val();
     });
@@ -533,5 +766,6 @@ $('#getImgBtn').change(function (e) {
     modalBorderColor.change(function () {
         templateObj.borderColor = modalBackElm.val();
     });
+
 
 });
