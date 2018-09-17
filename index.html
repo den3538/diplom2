@@ -12,9 +12,9 @@
 <template class="container" id="content-save">
 	<div class="row">
 		<div class="col-12">
-			<span class = "add-something pointer">Добавить блок</span>
-			<span class = "add-something pointer-img">Добавить картинку</span>
-			<span class = "add-something pointer-video">Добавить видео</span>
+			<span class = "add-something pointer"><img src="images/block-icon.jpg" title="Добавить блок" alt="Добавить блок"></span>
+			<span class = "add-something pointer-img"><img src="images/image-icon.jpg" title="Добавить картинку" alt="Добавить картинку"></span>
+			<span class = "add-something pointer-video"><img src="images/video-icon.png" title="Добавить видео" alt="Добавить видео"></span>
 		</div>
 	</div>
 	<div class="options" id="options">
@@ -244,9 +244,9 @@
         $('#content-save,.add-something').hide();
         $(this).hide();
         $('.es-template').remove();
-        $('.ui-draggable').removeClass('ui-draggable ui-draggable-handle').draggable( 'disable' );
-        $('.ui-resizable').resizable('disable').removeClass('ui-state-disabled');
-        $('.ui-resizable-handle').remove();
+        $('.ui-draggable').draggable( 'disable' );//.removeClass('ui-draggable ui-draggable-handle')
+        $('.ui-resizable').resizable('disable');//.removeClass('ui-state-disabled')
+        //$('.ui-resizable-handle').remove();
         $('<a />').attr({
             download: 'index.html',
             href: "data:text/html," + $('html').html(),
@@ -254,9 +254,8 @@
         })[0].click();
         $('#content-save,.add-something').show();
         $(this).show();
-        $('.ui-draggable').addClass('ui-draggable ui-draggable-handle').draggable( 'enable' );
-        $('.ui-resizable').resizable('enable').addClass('ui-state-disabled');
-        $('.ui-resizable-handle').remove();
+        $('.ui-draggable').draggable( 'enable' );//.removeClass('ui-draggable ui-draggable-handle')
+        $('.ui-resizable').resizable('enable');//.removeClass('ui-state-disabled')
     });
 </script>
 </body>

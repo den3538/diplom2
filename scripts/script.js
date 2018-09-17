@@ -69,7 +69,7 @@ var templateId= null;
         templateId = $(this).attr('id');
         console.log(templateId);
         if(templateId === 'minimal-template'){
-            body.css('background','linear-gradient(to top, #1e5799 0%,#207cca 39%,#2989d8 58%,#2989d8 58%,#7db9e8 100%)');
+            body.css('background','#2888d7');
             templateObj = {
                 color: "#fff",
                 background: "#55f15e",
@@ -181,9 +181,14 @@ var templateId= null;
 
 	/****************** Click to delete element ***************/
 	$(document).on('click',"#delete",function(event) {
-		$(".divClass.active").remove();
-		optionsElement.hide();
-	});
+     if($('.divClass.active').parent('.videoParent').length){
+         $(".divClass.active").parent('.videoParent').remove();
+     }
+     else{
+         $(".divClass.active").remove();
+     }
+     optionsElement.hide();
+     });
 	/****************** /Click to delete element ***************/
 
 

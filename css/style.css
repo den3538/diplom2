@@ -26,12 +26,19 @@ body{
 .add-something{
 	cursor: pointer;
 	transition: all .3s;
-	font-size:16px;
-	margin:0 10px;
+	font-size: 16px;
+	margin: 0 10px;
 	user-select: none;
+	width: 10%;
+	display: inline-block;
+	max-width: 10%;
+	flex-basis: 10%;
 }
 .add-something:hover{
 	color: #84ff88;
+}
+.add-something>img{
+	width:100%;
 }
 .form-group>input:not(.mg){
 	float:right
@@ -71,6 +78,9 @@ img.active{
 	overflow: visible!important;
 	min-width: 100% !important;
 	min-height: 100% !important;
+}
+.wrapper>.row{
+	background: #949494;
 }
 .es-btn{
 	width: 100px;
