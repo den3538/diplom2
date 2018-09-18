@@ -5,16 +5,12 @@ var clone2 = temp2.content.cloneNode(true);
 
 $('.wrapper').append(clone1);
 /*$('.wrapper').append(clone2);*/
-
-
 $(document).ready(function() {
-    var body = $('body'),
-		templateObj = {};
+    var body = $('body');
     /******************* Variables ***************/
     $("#img").resizable();
     var zIndex = 1,
         currentEvent = false,
-        divcount=0,
         blockClickEvent = true,
         optionsElement = $('#options'),
         optionsElementBtnDel = $('#options #delete button'),
@@ -36,24 +32,6 @@ $(document).ready(function() {
         elmPaddingBot = null,
         elmWidth = null,
         elmHeight = null,
-        modalObj = {
-            color: null,
-            background: null,
-            paddingTop: null,
-            paddingRight: null,
-            paddingBottom: null,
-            paddingLeft: null,
-            borderWidth: null,
-            borderColor: null,
-            width: null,
-            height: null,
-            'text-align': null,
-            text: null,
-            url: '',
-            imgtitle: 'image',
-            imgalt: 'image',
-            'border-radius': '0px'
-        };
         videoObj = {
             url: '',
             videotitle: 'video',
@@ -69,6 +47,7 @@ var templateId= null;
         templateId = $(this).attr('id');
         console.log(templateId);
         if(templateId === 'minimal-template'){
+            body.css('font-family','Lora, serif');
             body.css('background','#2888d7');
             templateObj = {
                 color: "#fff",
@@ -94,6 +73,7 @@ var templateId= null;
             ;
 		}
 		else if(templateId === 'gotik-template'){
+            body.css('font-family','Oswald, sans-serif');
             body.css('background','#e9e9e9');
             templateObj = {
                 color: "#ff2e1f",
@@ -118,6 +98,7 @@ var templateId= null;
             };
 		}
 		else{
+            body.css('font-family','Mukta, sans-serif;');
             templateObj = {
                 color: "#000",
                 background: "#fff",
@@ -203,7 +184,11 @@ var templateId= null;
                 !$('#imgModal').is(event.target) &&
                 $('#imgModal').has(event.target).length === 0 &&
                 !$('#videoModal').is(event.target) &&
-                $('#videoModal').has(event.target).length === 0
+                $('#videoModal').has(event.target).length === 0 &&
+                !$('#btnModal').is(event.target) &&
+                $('#btnModal').has(event.target).length === 0 &&
+                !$('#inputModal').is(event.target) &&
+                $('#inputModal').has(event.target).length === 0
 				){
 				$('.active').removeClass('active');
 				div.hide();
@@ -627,19 +612,6 @@ $('.modalSave').click(function() {
 
     /*********************** /videoModalSave ***********************/
 
-    function setCurrentPropModal() {
-        var dataType = $('.active').data('type');
-        switch (dataType){
-            case 'block':
-                $('#propModal').modal('show');
-                break;
-            case 'img':
-                $('#imgModal').modal('show');
-                break;
-            case 'video':
-                $('#videoModal').modal('show');
-        }
-    };
 
     $(document).on('click','#properties',function () {
         setCurrentPropModal();
@@ -648,14 +620,6 @@ function esScrollToEl(name,time = 0.5){
 	 $([document.documentElement, document.body]).animate({
         scrollTop: $(name).offset().top
     }, time*1000);
-}
-
-function rgb2hex(rgb) {
-    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    function hex(x) {
-        return ("0" + parseInt(x).toString(16)).slice(-2);
-    }
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
 function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image',borderRadius='0px' ){
@@ -685,9 +649,6 @@ function setVideoOpt(width,height,url,alt,title) {
     videoObj.videoalt = alt;
 }
 
-function setModalObjZindex(zIndex) {
-        modalObj.zindex = zIndex;
-}
 
 function setCurrentOptions(activeEl){
     	elmborderWidth = activeEl.css('border-width').substring(0, activeEl.css('border-width').lastIndexOf('p'));
@@ -699,21 +660,7 @@ function setCurrentOptions(activeEl){
         elmHeight = Number(activeEl.height())+Number(elmPaddingTop)+Number(elmPaddingBot)+(Number(elmborderWidth*2));
 }
 
-function addDraggable(divcount, dataType) {
-	var divCount =  $(".div-count-"+divcount+"");
-        divCount.attr('data-type', dataType);
-        divCount.draggable({
-        scroll: true,
-		/*containment: 'html',*/
-        start: function(){
-            $(this).addClass('dragging');
-        },
-        stop: function(){
-            $(this).removeClass('dragging');
-        }
-    });
-    divCount.resizable();
-}
+
 
 $('#getImgBtn').change(function (e) {
     var type_reg = /^image\/(jpg|png|jpeg|bmp|gif|ico)$/,
@@ -771,6 +718,7 @@ $('#getImgBtn').change(function (e) {
     modalBorderColor.change(function () {
         templateObj.borderColor = modalBackElm.val();
     });
+
 
 
 });

@@ -4,17 +4,29 @@
 	  <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/yeti/bootstrap.min.css" rel="stylesheet" >
 	<link rel="stylesheet" href="css/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Mukta" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Mukta|Lora|Oswald" rel="stylesheet">
 	<meta charset="UTF-8">
 	<title>Diplom</title>
 </head>
 <body>
+<style>
+	.btnElem{
+		margin: 10px !important;
+		transition: all .3s ease;
+	}
+	.btnElem:hover{
+		cursor: pointer;
+		box-shadow: 1px 1px 8px 3px rgba(0,0,0,.3);
+	}
+</style>
 <template class="container" id="content-save">
 	<div class="row">
 		<div class="col-12">
 			<span class = "add-something pointer"><img src="images/block-icon.jpg" title="Добавить блок" alt="Добавить блок"></span>
 			<span class = "add-something pointer-img"><img src="images/image-icon.jpg" title="Добавить картинку" alt="Добавить картинку"></span>
 			<span class = "add-something pointer-video"><img src="images/video-icon.png" title="Добавить видео" alt="Добавить видео"></span>
+			<span class = "add-something pointer-btn"><img src="images/btn-icon.png" title="Добавить кнопку" alt="Добавить кнопку"></span>
+			<span class = "add-something pointer-input"><img src="images/input-icon.png" title="Добавить input" alt="Добавить input"></span>
 		</div>
 	</div>
 	<div class="options" id="options">
@@ -228,6 +240,103 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- btn modal -->
+	<div class="modal fade" id="btnModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Свойства кнопки</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label for="btnModalWidth">Введите ширину в px</label>
+						<input  type="number" id="btnModalWidth">
+					</div>
+					<div class="form-group">
+						<label for="btnModalHeight">Введите высоту в px</label>
+						<input  type="number" id="btnModalHeight">
+					</div>
+					<div class="form-group">
+						<label for="btnTitle">Введите подсказку</label>
+						<input type="text" id="btnTitle">
+					</div>
+					<div class="form-group">
+						<label for="zIndexbtn">Установите z-index</label>
+						<input  type="number" id="zIndexbtn">
+					</div>
+					<div class="form-group">
+						<label for="btnBackColor">Выберите цвет фона</label>
+						<input class = "mg" type="color" id="btnBackColor">
+					</div>
+					<div class="form-group">
+						<label for="btnColor">Выберите цвет текста</label>
+						<input class = "mg" type="color" id="btnColor">
+					</div>
+					<div class="form-group">
+						<label for="btnText">Введите текст кнопки</label>
+						<input class = "mg" type="text" id="btnText">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn btn-primary btnModalSave" data-dismiss="modal">Сохранить</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- input modal-->
+	<div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Свойства поля ввода</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="inputModalWidth">Введите ширину в px</label>
+						<input  type="number" id="inputModalWidth">
+					</div>
+					<div class="form-group">
+						<label for="inputModalHeight">Введите высоту в px</label>
+						<input  type="number" id="inputModalHeight">
+					</div>
+					<div class="form-group">
+						<label for="inputPlaceholder">Введите placeholder</label>
+						<input  type="text" id="inputPlaceholder">
+					</div>
+					<div class="form-group">
+						<label for="inputTitle">Введите подсказку</label>
+						<input type="text" id="inputTitle">
+					</div>
+					<div class="form-group">
+						<label for="inputPDleft">Левый отступ</label>
+						<input type="number" id="inputPDleft">
+					</div>
+					<div class="form-group">
+						<label for="zIndexinput">Установите z-index</label>
+						<input  type="number" id="zIndexinput">
+					</div>
+					<div class="form-group">
+						<label for="inputColor">Выберите цвет текста</label>
+						<input class = "mg" type="color" id="inputColor">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn btn-primary inputModalSave" data-dismiss="modal">Сохранить</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </footer>
 
 
@@ -236,7 +345,10 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src = "scripts/functions.js"></script>
   <script src = "scripts/script.js"></script>
+  <script src = "scripts/btn-script.js"></script>
+  <script src = "scripts/input-script.js"></script>
 
 
 <script>
