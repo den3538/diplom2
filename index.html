@@ -20,8 +20,8 @@
 		box-shadow: 1px 1px 8px 3px rgba(0,0,0,.3);
 	}
 </style>
-<template class="container" id="content-save">
-	<div class="row">
+<template class="container " id="content-save">
+	<div class="row es-header-menu">
 		<div class="col-12">
 			<span class = "add-something pointer"><img src="images/block-icon.jpg" title="Добавить блок" alt="Добавить блок"></span>
 			<span class = "add-something pointer-img"><img src="images/image-icon.jpg" title="Добавить картинку" alt="Добавить картинку"></span>
@@ -52,21 +52,21 @@
 					<div class="img-block">
 						<img src="images/left-sidebar.png" alt="left sidebar">
 					</div>
-					<button class="btn btn-primary template-btn" id="sidebar-lef">Выбрать</button>
+					<button class="btn btn-primary template-page-btn" id="sidebar-lef">Выбрать</button>
 				</div>
 				<div class="col-lg-4 sidebar-right">
 					<h4>Сайдбар справа</h4>
 					<div class="img-block">
 						<img src="images/right-sidebar.png" alt="right sidebar">
 					</div>
-					<button class="template-btn" id="right-sidebar">Выбрать</button>
+					<button class=" template-page-btn" id="right-sidebar">Выбрать</button>
 				</div>
 				<div class="col-lg-4 no-sidebar">
 					<h4>Без сайдбара</h4>
 					<div class="img-block">
 						<img src="images/without-sidebar.png" alt="without sidebar">
 					</div>
-					<button class="btn btn-primary template-btn" id="without-sidebar">Выбрать</button>
+					<button class="btn btn-primary template-page-btn" id="without-sidebar">Выбрать</button>
 				</div>
 			</div>
 		</div>
@@ -109,10 +109,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="test-text-toolbar"></div>
-		<div class="test-text" style="width: 400px; height: 400px; border:1px solid #000;">
-
 		</div>
 	</template>
 
@@ -418,35 +414,6 @@
         else
             videoElm[0].pause();
     }
-</script>
-<script>
-    new Quill('.test-text', {
-        debug: 'info',
-        modules: {
-            toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
-
-        ['clean']                                         // remove formatting button
-    ]
-        },
-        placeholder: 'Compose an epic...',
-        readOnly: false,
-        theme: 'snow'
-    });
 </script>
 </body>
 </html>

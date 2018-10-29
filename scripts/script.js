@@ -1,7 +1,9 @@
 var temp1 = document.getElementById("changeMode"),
-    temp2 = document.querySelector("#content-save");
+    temp2 = document.querySelector("#content-save"),
+    temp3 = document.querySelector("#changeTemplate");
 var clone1 = temp1.content.cloneNode(true);
 var clone2 = temp2.content.cloneNode(true);
+var clone3 = temp3.content.cloneNode(true);
 
 $('.wrapper').append(clone1);
 /*$('.wrapper').append(clone2);*/
@@ -41,11 +43,17 @@ $(document).ready(function() {
         }
     ;
     /******************* /Variables ***************/
-var templateId= null;
+var templateId= null,
+        templatePage = null;
 	$(document).on('click','.template-btn',function () {
-		$('.wrapper').html(clone2);
+		$('.wrapper').html(clone3);
         templateId = $(this).attr('id');
-        console.log(templateId);
+    });
+
+	$(document).on('click','.template-page-btn',function () {
+        $('.wrapper').html(clone2);
+        templatePage = $(this).attr('id');
+        console.log(templateId, templatePage);
         if(templateId === 'minimal-template'){
             body.css('font-family','Lora, serif');
             body.css('background','#2888d7');
@@ -65,14 +73,13 @@ var templateId= null;
                 url: '',
                 imgtitle: 'minimal image',
                 imgalt: 'minimal image',
-				'border-radius': '3px',
+                'border-radius': '3px',
                 videourl:'',
                 videotitle:"minimal video",
                 videoalt:"minimal video"
             };
-            ;
-		}
-		else if(templateId === 'gotik-template'){
+        }
+        else if(templateId === 'gotik-template'){
             body.css('font-family','Oswald, sans-serif');
             body.css('background','#e9e9e9');
             templateObj = {
@@ -96,8 +103,8 @@ var templateId= null;
                 videotitle:"gotik video",
                 videoalt:"gotik video"
             };
-		}
-		else{
+        }
+        else{
             body.css('font-family','Mukta, sans-serif;');
             templateObj = {
                 color: "#000",
@@ -120,11 +127,9 @@ var templateId= null;
                 videotitle:"standart video",
                 videoalt:"standart video"
             };
-		}
+        }
         optionsElement = $('#options');
     });
-
-
 
 /******************* Click to add ***************/
 	$(document).on('click',".pointer",function() {
