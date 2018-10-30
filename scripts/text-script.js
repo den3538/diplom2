@@ -21,13 +21,7 @@ var toolbarOptions = [
     ['clean']                                         // remove formatting button
 ];
 var quillAraay = [];
-quillAraay.push(new Quill('.test-text-container', {
-    modules: {
-        toolbar: toolbarOptions
-    },
-    theme: 'snow',
-    placeholder: 'Enter your text'
-}));
+
 
 var ToolbarEvents = function () {
     function getCollection(){
@@ -44,7 +38,43 @@ var ToolbarEvents = function () {
         allCollection.forEach(function (value) {
             value.style.display = checkElement(value) ? 'block' :  'none';
         })
-    }
+    };
+
+    this.addNewQuill = function (counter) {
+        var classCounter = '.text-count-'+counter+'';
+        console.log(classCounter);
+        quillAraay.push(new Quill(classCounter, {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow',
+            placeholder: 'Enter your text'
+        }));
+    };
+
 };
 
-var toolbarObj =  new ToolbarEvents();
+$(function () {
+    var textPointerObject = new ToolbarEvents();
+
+    $(document).on('click','.pointer-text',function () {
+        $(".wrapper").append(
+            '<div class="test-text-wrapper">' +
+                '<div class="test-text-container text-count-'+quillAraay.length+'">'+'</div>' +
+            '</div>');
+        textPointerObject.addNewQuill(quillAraay.length);
+        var currentElement =  $(quillAraay[quillAraay.length-1].container).parent('.test-text-wrapper');
+        // currentElement.draggable({
+        //     scroll: true,
+        //     /*containment: 'html',*/
+        //     start: function(){
+        //         $(this).addClass('dragging');
+        //     },
+        //     stop: function(){
+        //         $(this).removeClass('dragging');
+        //     }
+        // });
+        currentElement.resizable();
+    });
+});
+
