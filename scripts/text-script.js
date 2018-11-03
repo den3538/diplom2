@@ -59,22 +59,36 @@ $(function () {
 
     $(document).on('click','.pointer-text',function () {
         $(".wrapper").append(
-            '<div class="test-text-wrapper">' +
+            '<div class="test-text-wrapper divClass">' +
                 '<div class="test-text-container text-count-'+quillAraay.length+'">'+'</div>' +
             '</div>');
         textPointerObject.addNewQuill(quillAraay.length);
         var currentElement =  $(quillAraay[quillAraay.length-1].container).parent('.test-text-wrapper');
-        // currentElement.draggable({
-        //     scroll: true,
-        //     /*containment: 'html',*/
-        //     start: function(){
-        //         $(this).addClass('dragging');
-        //     },
-        //     stop: function(){
-        //         $(this).removeClass('dragging');
-        //     }
-        // });
+        currentElement.draggable({
+            scroll: false,
+            /*containment: 'html',*/
+            start: function(){
+                $(this).addClass('dragging');
+            },
+            stop: function(){
+                $(this).removeClass('dragging');
+            }
+        });
         currentElement.resizable();
     });
+    
+    $(document).on('click','.test-text-wrapper',function () {
+        var self = this;
+        $(this).draggable('disable');
+        $(this).find('.ql-editor').blur(function (e) {
+            e.preventDefault();
+            console.log('я родился');
+            $(self).draggable('enable');
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+        });
+    });
+
+
 });
 
