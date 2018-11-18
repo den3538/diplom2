@@ -80,6 +80,7 @@ img.active{
 	min-height: 100% !important;
 }
 .wrapper>.row{
+	z-index: 10;
 	background: #949494;
 }
 .es-btn{
@@ -251,4 +252,37 @@ img.active{
 	width: 100%;
 	height: auto;
 	border: none!important;
+}
+.header-block{
+	min-height: 50px;
+	border-bottom: 1px solid #003eff;
+	width: 100%;
+	z-index: 2;
+}
+.footer-block{
+	min-height: 50px;
+	border-top: 1px solid #003eff;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+.es-left-sidebar{
+	display: none;
+	position: absolute;
+	left: 0;
+	width: 20%;
+	height: 100%;
+	border-right: 1px solid #003eff;
+	min-width: 100px;
+	max-width: 500px;
+
+}
+.es-right-sidebar{
+	display: none;
+	position: absolute;
+	width: 20%;
+	height: 100%;
+	border-left: 1px solid #003eff;
+	min-width: 100px;
+	right: 0;
 }

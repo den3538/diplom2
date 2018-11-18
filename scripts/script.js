@@ -50,13 +50,23 @@ var templateId= null,
         templateId = $(this).attr('id');
     });
 
+	function setAllbg(color){
+	    $('.header-block').css('background',color);
+        body.css('background',color);
+	    $('.footer-block').css('background',color);
+	    $('.es-left-sidebar').css('background',color);
+	    $('.es-right-sidebar').css('background',color);
+    }
+
+
 	$(document).on('click','.template-page-btn',function () {
         $('.wrapper').html(clone2);
         templatePage = $(this).attr('id');
+        setSidebars(templatePage);
         console.log(templateId, templatePage);
         if(templateId === 'minimal-template'){
             body.css('font-family','Lora, serif');
-            body.css('background','#2888d7');
+            setAllbg('#2888d7');
             templateObj = {
                 color: "#fff",
                 background: "#55f15e",
@@ -81,7 +91,7 @@ var templateId= null,
         }
         else if(templateId === 'gotik-template'){
             body.css('font-family','Oswald, sans-serif');
-            body.css('background','#e9e9e9');
+            setAllbg('#e9e9e9');
             templateObj = {
                 color: "#ff2e1f",
                 background: "#000",
@@ -106,6 +116,7 @@ var templateId= null,
         }
         else{
             body.css('font-family','Mukta, sans-serif;');
+            setAllbg('#fff');
             templateObj = {
                 color: "#000",
                 background: "#fff",
@@ -130,6 +141,19 @@ var templateId= null,
         }
         optionsElement = $('#options');
     });
+
+
+	function setSidebars(templatePage){
+        	    if (templatePage==='sidebar-left') {
+                    $('.es-left-sidebar').show();
+                }
+                else if(templatePage==='right-sidebar'){
+                    $('.es-right-sidebar').show();
+                }
+                else{
+
+                }
+    }
 
 /******************* Click to add ***************/
 	$(document).on('click',".pointer",function() {

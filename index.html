@@ -21,6 +21,8 @@
 	}
 </style>
 <template class="container " id="content-save">
+	<div class="es-left-sidebar"></div>
+	<div class="es-right-sidebar"></div>
 	<div class="row es-header-menu">
 		<div class="col-12">
 			<span class = "add-something pointer"><img src="images/block-icon.jpg" title="Добавить блок" alt="Добавить блок"></span>
@@ -31,6 +33,7 @@
 			<span class = "add-something pointer-text"><img src="images/text-icon.png" title="Добавить текст" alt="Добавить текст"></span>
 		</div>
 	</div>
+	<div class="header-block"></div>
 	<div class="options" id="options">
 		<ul class="options-container" id = "options-container">
 			<li class="options-field" id="delete">
@@ -41,6 +44,7 @@
 			</li>
 		</ul>
 	</div>
+	<div class="footer-block"></div>
 </template>
 
 <template class="container" id="changeTemplate">
@@ -53,7 +57,7 @@
 					<div class="img-block">
 						<img src="images/left-sidebar.png" alt="left sidebar">
 					</div>
-					<button class="btn btn-primary template-page-btn" id="sidebar-lef">Выбрать</button>
+					<button class="btn btn-primary template-page-btn" id="sidebar-left">Выбрать</button>
 				</div>
 				<div class="col-lg-4 sidebar-right">
 					<h4>Сайдбар справа</h4>
@@ -240,8 +244,6 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="imgUrl">Вставьте адрес(URL) видео</label>
-						<input type="text" id="videoUrl">
 						<input type="file" class="full-btn" id = "getVideoBtn" placeholder="Выберите файл">
 					</div>
 					<div class="form-group">
@@ -386,22 +388,44 @@
 
 
 <script>
+
+	function disableAllBorders(){
+        $('.header-block').css('border','none');
+        $('.footer-block').css('border','none');
+        $('.es-left-sidebar').css('border','none');
+        $('.es-right-sidebar').css('border','none');
+	}
+
+	function toggleDownload(flag = false, $this){
+	    if (flag){
+            $('#content-save,.add-something').show();
+            $('footer').show();
+            $this.show();
+            $('.ui-draggable').draggable( 'enable' );//.removeClass('ui-draggable ui-draggable-handle')
+            $('.ui-resizable').resizable('enable');//.removeClass('ui-state-disabled')
+        }
+        else{
+            $('#content-save,.add-something').hide();
+            $this.hide();
+            $('.es-template').remove();
+            $('footer').hide();
+            $('.ui-draggable').draggable( 'disable' );//.removeClass('ui-draggable ui-draggable-handle')
+            $('.ui-resizable').resizable('disable');//.removeClass('ui-state-disabled')
+		}
+    }
+
     $('.download').on('click', function(){
-        $('#content-save,.add-something').hide();
-        $(this).hide();
-        $('.es-template').remove();
-        $('.ui-draggable').draggable( 'disable' );//.removeClass('ui-draggable ui-draggable-handle')
-        $('.ui-resizable').resizable('disable');//.removeClass('ui-state-disabled')
+
         //$('.ui-resizable-handle').remove();
+        disableAllBorders();
+        toggleDownload(false,$(this));
         $('<a />').attr({
             download: 'index.html',
             href: "data:text/html," + $('html').html(),
             target: "_blank"
         })[0].click();
-        $('#content-save,.add-something').show();
-        $(this).show();
-        $('.ui-draggable').draggable( 'enable' );//.removeClass('ui-draggable ui-draggable-handle')
-        $('.ui-resizable').resizable('enable');//.removeClass('ui-state-disabled')
+        toggleDownload(true,$(this));
+
     });
 </script>
 <!-- video play/paused -->
