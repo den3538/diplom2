@@ -75,9 +75,9 @@ $('.inputModalSave').on('click',function () {
             'color':  $('#inputColor').val(),
             'border-radius': templateObj['border-radius'],
             'border-width': templateObj.borderWidth,
-            'padding-left': $('#inputPDleft').val()
+            'padding-left': ($('#inputPDleft').val().length<1) ? 5+'px' : $('#inputPDleft').val()+'px'
         });
-        console.log('inputEl',activeEl);
+        console.log('inputEl',activeEl,$('#inputPDleft').val());
 
     }
     else{
@@ -99,7 +99,7 @@ $('.inputModalSave').on('click',function () {
             width: inputObject.width,
             height: inputObject.height,
             'z-index': modalObj.zIndex,
-            color: templateObj.color,
+            color: $('#inputColor').val(),
             'padding-left': inputObject.pl+'px',
             'border-radius': templateObj['border-radius'],
             'border-width': templateObj.borderWidth
