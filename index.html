@@ -402,6 +402,7 @@
 
 	function toggleDownload(flag = false, $this){
 	    if (flag){
+	        console.log('true');
             $('#content-save,.add-something').show();
             $('footer').show();
             $this.show();
@@ -409,6 +410,7 @@
             $('.ui-resizable').resizable('enable');//.removeClass('ui-state-disabled')
         }
         else{
+            console.log('false');
             $('#content-save,.add-something').hide();
             $this.hide();
             $('.es-template').remove();

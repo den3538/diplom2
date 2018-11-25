@@ -257,7 +257,7 @@ img.active{
 }
 .header-block{
 	min-height: 50px;
-	border-bottom: 1px solid #003eff;
+	border-bottom: 1px solid #003eff!important;
 	width: 100%;
 	z-index: 0;
 }
@@ -269,7 +269,7 @@ html{
 }
 .footer-block{
 	min-height: 50px;
-	border-top: 1px solid #003eff;
+	border-top: 1px solid #003eff!important;
 	width: 100%;
 	position: absolute;
 	bottom: 0;
@@ -280,7 +280,7 @@ html{
 	left: 0;
 	width: 20%;
 	height: 100%;
-	border-right: 1px solid #003eff;
+	border-right: 1px solid #003eff!important;
 	min-width: 100px;
 	max-width: 500px;
 
@@ -290,7 +290,10 @@ html{
 	position: absolute;
 	width: 20%;
 	height: 100%;
-	border-left: 1px solid #003eff;
+	border-left: 1px solid #003eff!important;
 	min-width: 100px;
 	right: 0;
+}
+button.save-text{
+	float:right;
 }

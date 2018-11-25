@@ -60,7 +60,8 @@ $(function () {
     $(document).on('click','.pointer-text',function () {
         $(".wrapper").append(
             '<div class="test-text-wrapper divClass">' +
-                '<div class="test-text-container text-count-'+quillAraay.length+'">'+'</div>' +
+                '<div class="test-text-container text-count-'+quillAraay.length+'" data-number="'+quillAraay.length+'">'+'</div>' +
+            '<button class="btn btn-primary save-text">Сохранить</button>'+
             '</div>');
         textPointerObject.addNewQuill(quillAraay.length);
         var currentElement =  $(quillAraay[quillAraay.length-1].container).parent('.test-text-wrapper');
@@ -90,5 +91,21 @@ $(function () {
     });
 
 
+    $(document).on('click','.save-text',function (e) {
+       var elmToRemove = $(this).siblings('.test-text-container').data('number');
+       quillAraay[elmToRemove].disable();
+       $(this).parents('.test-text-wrapper').draggable('enable').css({
+           'background':'transparent',
+           'overflow':'hidden',
+           'height': 'auto',
+           'width': 'auto',
+           'cursor': 'pointer'
+       }).resizable('disable').removeClass('ui-state-disabled');
+       $(this).siblings('.ql-toolbar').remove();
+       $(this).remove();
+       e.preventDefault();
+       e.stopPropagation();
+       e.stopImmediatePropagation();
+    });
 });
 
