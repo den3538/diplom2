@@ -244,6 +244,7 @@ img.active{
 	height: auto;
 	background: #fff;
 	overflow: hidden auto;
+	z-index: 1000;
 }
 .ql-toolbar{
 	display: flex;

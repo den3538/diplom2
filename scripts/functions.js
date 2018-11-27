@@ -18,6 +18,7 @@ modalObj = {
     height: null,
     'text-align': null,
     text: null,
+    textSize: null,
     url: '',
     imgtitle: 'image',
     imgalt: 'image',

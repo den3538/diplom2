@@ -18,6 +18,7 @@ $(document).ready(function() {
         optionsElementBtnDel = $('#options #delete button'),
         modalColorElm = $('#modalColor'),
         modalTextElm = $('#modalText'),
+        modalTextSize = $('#modalTextSize'),
         modalBackElm = $('#modalBackColor'),
         modalWidthElm =  $('#modalWidth'),
         modalHeightElm =  $('#modalHeight'),
@@ -238,6 +239,7 @@ $('#propModal').on('show.bs.modal', function (e) {
   		activeEl.height(),
   		activeEl.css('text-align'),
   		activeEl.find('.my-p').text(),
+		activeEl.css('font-size'),
 		activeEl.css('padding-top'),
 		activeEl.css('padding-right'),
 		activeEl.css('padding-bottom'),
@@ -279,6 +281,7 @@ $('#propModal').on('show.bs.modal', function (e) {
 	  		modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
 			$('#modalTextAlign option:selected').val(),
 	  		modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
+	  		modalTextSize.val().length ? modalTextSize.val() : '16',
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
             modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
@@ -314,6 +317,7 @@ $('#imgModal').on('show.bs.modal', function (e) {
             activeEl.height(),
             activeEl.css('text-align'),
             activeEl.find('.my-p').text(),
+            activeEl.css('font-size'),
             activeEl.css('padding-top'),
             activeEl.css('padding-right'),
             activeEl.css('padding-bottom'),
@@ -340,6 +344,7 @@ $('#imgModal').on('show.bs.modal', function (e) {
             modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
             $('#modalTextAlign option:selected').val(),
             modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
+            modalTextSize.val().length ? modalTextSize.val() : 16,
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
             modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
@@ -413,6 +418,7 @@ $('.modalSave').click(function() {
 					width: modalWidthElm.val(),
 					height: modalHeightElm.val(),
 					'text-align': $('#modalTextAlign option:selected').val(),
+                    'font-size': $('#modalTextSize').val()+'px',
 					padding: modalPaddingTop.val()+'px '+modalPaddingRight.val()+'px '+modalPaddingBottom.val()+'px '+modalPaddingLeft.val()+'px',
 					border: modalBorderWidth.val()+'px solid '+ modalBorderColor.val(),
                     'z-index': $('#zIndexBlock').val()
@@ -429,6 +435,7 @@ $('.modalSave').click(function() {
             modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
             $('#modalTextAlign option:selected').val(),
             modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
+            modalTextSize.val().length ? modalTextSize.val() : '16',
             modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
             modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
             modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
@@ -454,6 +461,7 @@ $('.modalSave').click(function() {
             color: modalObj.color,
             width: modalObj.width,
             height: modalObj.height,
+            'font-size': modalObj.textSize+'px',
             'text-align': modalObj['text-align'],
 			padding: ''+modalObj.paddingTop+'px '+modalObj.paddingRight+'px '+modalObj.paddingBottom+'px '+modalObj.paddingLeft+'px',
             border: ''+modalObj.borderWidth+'px solid '+modalObj.borderColor,
@@ -650,13 +658,14 @@ function esScrollToEl(name,time = 0.5){
     }, time*1000);
 }
 
-function setModalObj(color,bg,width,height,textalign,text,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image',borderRadius='0px' ){
+function setModalObj(color,bg,width,height,textalign,text,textSize,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image',borderRadius='0px' ){
 		modalObj.color= color;
 	  	modalObj.background= bg;
 	  	modalObj.width= width;
 	  	modalObj.height= height;
 	  	modalObj['text-align']= textalign;
 	  	modalObj.text= text;
+	  	modalObj.textSize = textSize;
     	modalObj.paddingTop = paddingTop;
     	modalObj.paddingRight = paddingRight;
     	modalObj.paddingBottom = paddingBottom;
@@ -752,8 +761,8 @@ $('#getImgBtn').change(function (e) {
                     $this.val(currentValue.substr(0,currentValue.length-1));
     })
 
-    // window.onscroll = function () {
-    //     console.log('scroll',$(".div-count-"+(divcount-1)+"").offset().top+$(".div-count-"+(divcount-1)+"").height(), $('body').height());
-    //     $('body').height($(document).height());
-    // };
+     window.onscroll = function () {
+         console.log('scroll',$(".div-count-"+(divcount-1)+"").offset().top+$(".div-count-"+(divcount-1)+"").height(), $('body').height());
+         $('body').height($(document).height());
+     };
 });
