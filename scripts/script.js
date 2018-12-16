@@ -500,13 +500,15 @@ $('.modalSave').click(function() {
             })
         }
         else{
+            console.log('img element prev',modalObj, templateObj);
             setModalObj(
-                templateObj.color,
-                templateObj.background,
-                modalWidthElm.val().length ? modalWidthElm.val() : templateObj.width,
-                modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height,
-                $('#modalTextAlign option:selected').val(),
-                modalTextElm.val().length ? modalTextElm.val() :templateObj.text,
+                templateObj.color, //color
+                templateObj.background, //bg
+                modalWidthElm.val().length ? modalWidthElm.val() : templateObj.width, //width
+                modalHeightElm.val().length ? modalHeightElm.val() : templateObj.height, //height
+                $('#modalTextAlign option:selected').val(), //textalign
+                modalTextElm.val().length ? modalTextElm.val() :templateObj.text, //text
+                '',
                 modalPaddingTop.val().length ? modalPaddingTop.val() :'0',
                 modalPaddingRight.val().length ? modalPaddingRight.val() :'0',
                 modalPaddingBottom.val().length ? modalPaddingBottom.val() :'0',
@@ -517,7 +519,8 @@ $('.modalSave').click(function() {
                 templateObj.imgtitle,
                 templateObj.imgalt,
                 templateObj['border-radius']
-            )
+            );
+            console.log('img element',modalObj,templateObj);
             setModalObjZindex(
                 $('#zIndexImg').val().length ? $('#zIndexImg').val() : '1'
             )
@@ -659,7 +662,8 @@ function esScrollToEl(name,time = 0.5){
 }
 
 function setModalObj(color,bg,width,height,textalign,text,textSize,paddingTop,paddingRight,paddingBottom,paddingLeft,borderWidth,borderColor, url='', title = 'image', alt = 'image',borderRadius='0px' ){
-		modalObj.color= color;
+	console.log('modalObj prev',modalObj);
+    modalObj.color= color;
 	  	modalObj.background= bg;
 	  	modalObj.width= width;
 	  	modalObj.height= height;
@@ -676,6 +680,7 @@ function setModalObj(color,bg,width,height,textalign,text,textSize,paddingTop,pa
     	modalObj.imgtitle = title;
     	modalObj.imgalt = alt;
     	modalObj['border-radius']=borderRadius;
+    console.log('modalObj after',modalObj);
 }
 
 function setVideoOpt(width,height,url,alt,title) {
@@ -762,6 +767,9 @@ $('#getImgBtn').change(function (e) {
     })
 
      window.onscroll = function () {
+        if($(".div-count-"+(divcount-1)+"").length<=0){
+            return false;
+        }
          console.log('scroll',$(".div-count-"+(divcount-1)+"").offset().top+$(".div-count-"+(divcount-1)+"").height(), $('body').height());
          $('body').height($(document).height());
      };
