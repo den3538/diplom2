@@ -344,7 +344,7 @@ $('#imgModal').on('show.bs.modal', function (e) {
             activeEl.attr('alt')
         );
         setModalObjZindex(activeEl.css('z-index'));
-        $('#imgUrl').val(modalObj.url);
+        // $('#imgUrl').val(modalObj.url);
         $('#imgModalWidth').val(modalObj.width);
         $('#imgModalHeight').val(modalObj.height);
         $('#imgAlt').val(modalObj.imgalt);
@@ -374,6 +374,7 @@ $('#imgModal').on('show.bs.modal', function (e) {
         setModalObjZindex(
             $('#zIndexImg').val().length ?  $('#zindeximg').val(): '1'
         )
+        $('#getImgBtn').val('');
     }
 });
     $('#imgModal').on('hide.bs.modal', function(){
@@ -414,7 +415,8 @@ $('#imgModal').on('show.bs.modal', function (e) {
 
             setModalObjZindex(
                 $('#zIndexVideo').val().length ?  $('#zIndexVideo').val(): '1'
-            )
+            );
+            $('#getVideoBtn').val('');
         }
     });
     $('#videoModal').on('hide.bs.modal', function(){
@@ -735,6 +737,7 @@ function setCurrentOptions(activeEl){
 $('#getImgBtn').change(function (e) {
     var type_reg = /^image\/(jpg|png|jpeg|bmp|gif|ico)$/,
 	imgFile = this.files[0];
+    console.log('window.URL.createObjectURL',);
 	if (!type_reg.test(imgFile.type)){
         alert('Вы можете выбрать только картинку из папки images в корне проекта');
         this.value='';
@@ -744,7 +747,8 @@ $('#getImgBtn').change(function (e) {
         var reader  = new FileReader(),
             result = '';
         reader.onloadend = function () {
-            $('#imgUrl').attr('img-src',reader.result);
+             $('#imgUrl').attr('img-src',reader.result);
+            // $('#imgUrl').attr('img-src',window.URL.createObjectURL(imgFile));
         }
         reader.readAsDataURL(imgFile);
 	/*	var hrefUrl = window.location.pathname;

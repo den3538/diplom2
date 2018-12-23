@@ -696,6 +696,8 @@
             $('.ui-resizable').resizable('disable');//.removeClass('ui-state-disabled')
             $('body').css({'margin-top':'-110px','position':'absolute'});
 		}
+        $('#videoUrl').attr('video-src','');
+        $('#imgUrl').attr('img-src','');
     }
 
     $('.download').on('click', function(){
@@ -705,8 +707,7 @@
         toggleDownload(false,$(this));
         $('<a />').attr({
             download: 'index.html',
-            href: "data:text/html," + document.querySelector('html').innerHTML,
-            target: "_blank"
+            href: "data:text/html," + document.querySelector('html').innerHTML
         })[0].click();
         toggleDownload(true,$(this));
 
