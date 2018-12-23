@@ -5,6 +5,13 @@ var clone1 = temp1.content.cloneNode(true);
 var clone2 = temp2.content.cloneNode(true);
 var clone3 = temp3.content.cloneNode(true);
 
+function getLeft(element){
+    return $(element).offset().left;
+}
+function getTop(element) {
+    return $(element).offset().left;
+}
+
 $('.wrapper').append(clone1);
 /*$('.wrapper').append(clone2);*/
 $(document).ready(function() {
@@ -49,6 +56,7 @@ var templateId= null,
 	$(document).on('click','.template-btn',function () {
 		$('.wrapper').html(clone3);
         templateId = $(this).attr('id');
+        console.log()
     });
 
 	function setAllbg(color){
@@ -140,6 +148,7 @@ var templateId= null,
                 videoalt:"standart video"
             };
         }
+        console.log(templateObj);
         optionsElement = $('#options');
     });
 
@@ -192,8 +201,14 @@ var templateId= null,
 
 	/****************** Click to delete element ***************/
 	$(document).on('click',"#delete",function(event) {
-     if($('.divClass.active').parent('.videoParent').length){
-         $(".divClass.active").parent('.videoParent').remove();
+     if($('.divClass.active').parents('.videoParent').length){
+         $(".divClass.active").parents('.videoParent').remove();
+     }
+     else if ($('.active').parents('.btnParent ').length){
+         $(".active").parents('.btnParent').remove();
+     }
+     else if ($('.active').parents('.inputParent').length){
+         $(".active").parents('.inputParent').remove();
      }
      else{
          $(".divClass.active").remove();
@@ -461,6 +476,9 @@ $('.modalSave').click(function() {
             color: modalObj.color,
             width: modalObj.width,
             height: modalObj.height,
+            left: 0,
+            top: 110,
+            position: 'absolute',
             'font-size': modalObj.textSize+'px',
             'text-align': modalObj['text-align'],
 			padding: ''+modalObj.paddingTop+'px '+modalObj.paddingRight+'px '+modalObj.paddingBottom+'px '+modalObj.paddingLeft+'px',
@@ -548,6 +566,11 @@ $('.modalSave').click(function() {
 			}
 
             var divCount =  $(".div-count-"+divcount+"");
+            divCount.parent('.imgParent').css({
+                left: 0,
+                top: 110,
+                position: 'absolute'
+            });
             divCount.parent('.imgParent').draggable({
                 scroll: true,
                 /*containment: 'html',*/
@@ -633,6 +656,11 @@ $('.modalSave').click(function() {
             }
 
             var divCount =  $(".div-count-"+divcount+"");
+            divCount.parent('.videoParent').css({
+                left: 0,
+                top: 110,
+                position: 'absolute'
+            });
             divCount.parent('.videoParent').draggable({
                 scroll: true,
                 /*containment: 'html',*/

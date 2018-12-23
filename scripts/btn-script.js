@@ -108,6 +108,11 @@ $('.btnModalSave').on('click',function () {
 
         divCount.text(btnObject.text);
         divCount.attr('data-type', 'btn');
+        divCount.parent('.btnParent').css({
+            left: 0,
+            top: 110,
+            position: 'absolute',
+        });
         divCount.parent('.btnParent').draggable({
             scroll: true,
             /*containment: 'html',*/

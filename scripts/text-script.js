@@ -98,6 +98,9 @@ $(function () {
            'background':'transparent',
            'overflow':'hidden',
            'height': 'auto',
+           left: 0,
+           top: 110,
+           position: 'absolute',
            'width': 'auto',
            'cursor': 'pointer'
        }).resizable('disable').removeClass('ui-state-disabled');

@@ -112,6 +112,11 @@ $('.inputModalSave').on('click',function () {
 
         divCount.text(btnObject.text);
         divCount.attr('data-type', 'input');
+        divCount.parent('.inputParent').css({
+            left: 0,
+            top: 110,
+            position: 'absolute'
+        })
         divCount.parent('.inputParent').draggable({
             scroll: true,
             /*containment: 'html',*/
