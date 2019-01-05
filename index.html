@@ -654,9 +654,14 @@
 </footer>
 
 
-
-<button id="download_btn" class="download btn-shadow">Загрузить</button>
-	<script src="scripts/jquery-3.3.1.min.js"></script>
+<form id="download_form" method="post" action="index.php">
+	<button id="download_btn" class="download btn-shadow">Загрузить</button>
+	<input type="hidden" id="html_data" name="html">
+</form>
+<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
   <script  src="scripts/jquery-ui.min.js"></script>
   <script src="scripts/bootstrap.min.js"></script>
   <script src="scripts/quill.min.js"></script>
@@ -700,18 +705,30 @@
         $('#imgUrl').attr('img-src','');
     }
 
-    $('.download').on('click', function(){
-
+    $('#download_btn').on('click', function(e){
+        $('#html_data').val('');
+		e.preventDefault();
         //$('.ui-resizable-handle').remove();
-        disableAllBorders();
+		// var html = removeFromData($('html').html());
+		//console.log('returned html',html);
         toggleDownload(false,$(this));
-        $('<a />').attr({
-            download: 'index.html',
-            href: "data:text/html," + document.querySelector('html').innerHTML
-        })[0].click();
-        toggleDownload(true,$(this));
-
+        disableAllBorders();
+        let currentHtml = document.querySelector('html').innerHTML;
+        console.log('currentHtml',currentHtml);
+		$('#html_data').val(currentHtml);
+		 $('#download_form').submit();
+         toggleDownload(true,$(this));
     });
+
+	function removeFromData(html) {
+	    var $html = $.parseHTML( html );
+	    console.log('html',html);
+        $html.find('.modal').remove();
+        $html.find('.es-header-menu').remove();
+		// console.log('$html.html()',$html.html());
+		return $html.html();
+    }
+
 </script>
 <!-- video play/paused -->
 <script>
